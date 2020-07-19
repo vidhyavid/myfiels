@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+
+<script src="/modules/alcohol-module/js/chart.js"></script>
+{% endblock %}
+{% block main %}
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+        <div id="submenu-height">
+          <ul class="profile-submenu-nav">
+              <li><a href="/tracker/mood">MOOD<i class="fa fa-caret-up active-uparrow"></i></a></li>
+              <li><a href="/tracker">PROBLEM<i class="fa fa-caret-up active-uparrow"></i></a></li>
+              <li class="profile-submenu-active"><a href="/tracker/alcohol"><strong>Alcohol</strong><i class="fa fa-caret-up active-uparrow"></i></a></li>
+          </ul>
+        </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+          <div class="chart-pv-div pd-tp-bt-30">
+            <a class="chart-previous-link" onclick="prevBtnp()">
+              <i class="material-icons">keyboard_arrow_left</i></a>
+              <label class="chart-info-label" id="chartlable">18TH - 24TH MAY 2020</label>
+              <a class="chart-next-link"onclick="nextBtnp()">
+                <i class="material-icons">keyboard_arrow_right</i>
+              </a>
+            </div>
+          <div class="Chart-div maia-form-container">
+                    <canvas id="AlcoholChart" width="624" height="412"></canvas>
+                  </div>
+            <div class="maia-form-container">
+                <div class="wrapper center-block pt-tp-bt-40">
+                    <div id="accordion" class="panel-group" role="tablist" aria-multiselectable="true">
+                        <!-- <div class="panel panel-default">
+                            <div id="heading-1" class="panel-heading" role="tab">
+                                <h1 class="panel-title"><a href="#collapse-1" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" aria-controls="collapse-1"><strong>Monday 18th MAY</strong><br></a></h1>
+                                <div class="edit-goal-link"><a href="#"><strong>Edit</strong></a></div>
+                            </div>
+                            <div id="collapse-1" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="heading-1" aria-expanded="true">
+                                <div class="maia-panel-body">
+                                    <div>
+                                        <h5 class="card-heading"><strong>How many units?</strong><br></h5>
+                                        <div class="flex-div-col"><label class="profile-card-tittle">2</label></div>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-heading"><strong>Notes</strong><br></h5>
+                                        <div class="flex-div-col"><label class="profile-card-tittle">Was too hungover from yesterday</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default mrg-tp-15">
+                            <div id="heading-2" class="panel-heading" role="tab">
+                                <h1 class="panel-title"><a href="#collapse-2" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" aria-controls="collapse-2"><strong>Tuesday 19th MAY</strong></a></h1>
+                                <div class="edit-goal-link"><a href="#"><strong>Edit</strong></a></div>
+                            </div>
+                            <div id="collapse-2" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="heading-2" aria-expanded="true">
+                                <div class="maia-panel-body">
+                                    <div>
+                                        <h5 class="card-heading"><strong>How many units?</strong><br></h5>
+                                        <div class="flex-div-col"><label class="profile-card-tittle">0</label></div>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-heading"><strong>Notes</strong><br></h5>
+                                        <div class="flex-div-col"><label class="profile-card-tittle">Exercised all day and spent time with the family.</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="flex-end mrg-bt-25"><a href="{{ data.page.slug }}/add"><button class="btn btn-primary add-btn-org" type="button">ADD</button></a></div>
+                <div class="add-new-div d-none">
+                  <div class="heading-m18-mx22-lb pd-tp-bt-30 maia-form-container">
+                    {{ apos.area(data.page, 'headingAlcoholAddNew', {
+                          widgets: {
+                            'apostrophe-rich-text': {
+                              toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                              styles: [
+                                { name: 'Heading', element: 'h1' }
+                              ]
+                            }
+                          }
+                        }) }}
+                  </div>
+                    <!-- <h1 class="heading-m18-mx22-lb pd-tp-bt-30 maia-form-container"><strong>ADD NEW ENTRY</strong><br></h1> -->
+                    <div class="maia-form-body mrg-bt-40-md pd-tp-0">
+                        <div class="maia-form-container">
+                            <form>
+                                <div class="space-input mrg-rt-20"><label class="label-head"><strong>Date</strong><br></label><label class="cal-date"><input class="form-control sm-font-14" type="text" placeholder="DD/MM/YYYY"></label></div>
+                                <div class="space-input"><label class="label-head">How many units of alcohol did you consume?<br></label><div class="maia-select mrg-bt-10 mrg-tp-0 w-100">
+  <select required name="slct" id="slct">
+    <option value selected disabled>Select your Alcohol</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+  </select>
+</div></div>
+                                <div class="space-area"><label class="label-head"><strong>Do you have any notes for today?</strong><br></label><textarea class="form-control sm-font-14" placeholder="Enter any notes you have."></textarea></div>
+                                <div class="flex-end mrg-tp-bt-30"><button class="btn btn-primary save-btn mrg-rt-20" type="button">SAVE</button><button class="btn btn-primary cancel-btn" type="button">CANCEL</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

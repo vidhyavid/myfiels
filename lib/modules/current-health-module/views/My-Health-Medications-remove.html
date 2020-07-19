@@ -1,0 +1,130 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/current-health-module/js/edit_medication.js"></script>
+<script src="/modules/current-health-module/js/add_edit_medication_common.js"></script>
+{% endblock %}
+{% block main %}
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+        <div id="submenu-height">
+            <ul class="profile-submenu-nav">
+                <li><a href="/my-health"><strong>Diagnoses</strong><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+                <li class="profile-submenu-active"><a href="/my-health/current-health/medication">Medication<i class="fa fa-caret-up active-uparrow"></i></a></li>
+                <li><a href="#">Social prescriptions<i class="fa fa-caret-up active-uparrow"></i></a></li>
+            </ul>
+        </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+            <div class="heading-m18-mx22-lb pd-tp-bt-30 maia-form-container">
+              <!-- MEDICATIONS -->
+              {{ apos.area(data.page, 'headingMedicationview', {
+                    widgets: {
+                      'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                          { name: 'Heading', element: 'h1' }
+                        ]
+                      }
+                    }
+                  }) }}
+            </div>
+            <div class="maia-form-body mrg-bt-40-md pd-tp-0">
+                <div class="tittle-min16-max20 pd-tp-10 maia-form-container">
+                  <!-- UPDATE MEDICATIONS -->
+                  {{ apos.area(data.page, 'updateMedication', {
+                        widgets: {
+                          'apostrophe-rich-text': {
+                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                            styles: [
+                              { name: 'Heading', element: 'h1' }
+                            ]
+                          }
+                        }
+                      }) }}
+                </div>
+                <div class="maia-form-container pt-bt-30">
+
+                    <input type="text" class="d-none" id="current_med_count" value="{{ data.data | length }}">
+                    {% for med in data.data %}
+                    <div id="med__{{ loop.index }}" class="{{ 'top-line' if loop.index != 1 else '' }}">
+                        <div class="space-input">
+                            <div class="flex-sb">
+                                <label class="label-head"><strong>Medication</strong><br>
+                                </label><a class="delete-link delete-med" id="delete_med__{{ med.id }}" href="javascript:void(0);">Delete</a>
+                            </div>
+                            <input type="number" class="d-none" id="med_id__{{ loop.index }}" value="{{ med.id }}">
+                            <input type="text" class="sm-font-14"
+                                id="name__{{ loop.index }}"
+                                value="{{ med.name }}"
+                                placeholder="Add a medication">
+                        </div>
+                        <div class="space-input">
+                            <label class="label-head"><strong>Dose</strong><br></label>
+                            <input type="text" class="sm-font-14"
+                                id="dose__{{ loop.index }}"
+                                value="{{ med.dose }}"
+                                placeholder="What strength is your medication?">
+                        </div>
+                        <div class="space-input">
+                            <label class="label-head"><strong>Frequency</strong><br></label>
+                            <input type="text" class="sm-font-14"
+                                id="frequency__{{ loop.index }}"
+                                value="{{ med.frequency }}"
+                                placeholder="How often do you take it?">
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <div class="flex-end mrg-tp-bt-30">
+                        <button class="btn btn-primary save-btn mrg-rt-20" id="edit-med-save-btn" type="button">SAVE</button>
+                        <a href="{{ data.parent_route }}">
+                            <button class="btn btn-primary cancel-btn" type="button">CANCEL</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pop-up-hd-sub-ft" class="d-none">
+        <div id="med-del-success-pop" class="d-none">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading">YOUR MEDICATION HAS BEEN REMOVED</h1>
+                <a href="/{{ data.module_root }}/medication">
+                    <button class="btn btn-primary btn-green"
+                        type="button"><strong>CONTINUE</strong>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div id="med-del-error-pop" class="d-none">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading medication-err">ERROR</h1>
+                <h2 class="pop-heading medication-err">Could not remove your medication</h2>
+                <p id="med-error-message"></p>
+            </div>
+        </div>
+
+        <div id="med-update-success-pop" class="d-none">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading">YOUR MEDICATION HAS BEEN UPDATED</h1>
+                <a href="{{ data.slug }}">
+                    <button class="btn btn-primary btn-green"
+                        type="button"><strong>CONTINUE</strong>
+                    </button>
+                </a>
+                <a href="{{ data.parent_route }}">
+                    <button class="btn btn-primary btn-green"
+                        type="button"><strong>VIEW MEDICATIONS</strong>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div id="med-update-error-pop" class="d-none">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading">ERROR</h1>
+                <h2 class="pop-heading">Could not update your medication</h2>
+                <p id="med-error-message"></p>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

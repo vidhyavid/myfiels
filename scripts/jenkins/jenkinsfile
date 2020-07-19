@@ -1,0 +1,17 @@
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        acrQuickTask(azureCredentialsId: "$env.AZURE_SP", imageNames: [[image: "$env.PHR_REGISTRY/$env.PHR2_NAMESPACE-apostrophe:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/$env.PHR2_NAMESPACE-apostrophe:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/apostrophe.yaml')
+      }
+    }
+
+  }
+}

@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src='https://meet.jit.si/external_api.js'></script>
+<script>
+  $(document).ready(function() {
+    const domain = 'meet.mindwave.site';
+    const options = {
+      roomName: 'MW sample',
+      width: 700,
+      height: 700,
+      parentNode: document.querySelector('#meet')
+    };
+    const api = new JitsiMeetExternalAPI(domain, options);
+  })
+</script>
+{% endblock %}
+{% block main %}
+
+<body>
+  <div class="row">
+    <div class="col-md-6 col-12" style="width:100%">
+      <div id="meet"></div>
+    </div>
+    <div class="col-md-6 col-12" style="padding:20px">
+      <h3>MAIA DUMMY TEXT</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porta nunc libero, non cursus dolor vulputate vel. Duis luctus, libero sit amet cursus bibendum, magna diam dictum sem, nec aliquet orci erat at dolor. Fusce lectus tellus, tempor
+        quis consectetur semper, faucibus a nulla. Morbi tortor tellus, egestas non diam eget, semper euismod turpis. Fusce risus neque, aliquam non enim eu, mollis elementum mi. Nunc eu ex malesuada, ultricies purus sit amet, scelerisque neque.
+        Mauris vel libero blandit, cursus ipsum quis, mollis arcu.
+
+        Aenean pharetra a elit vitae varius. Morbi cursus, diam vitae condimentum accumsan, nunc odio aliquam urna, vel interdum lacus lectus sollicitudin tellus. Pellentesque suscipit ullamcorper magna, at rutrum sapien eleifend at. Morbi pulvinar
+        risus est, vitae vehicula purus malesuada in. Mauris vel hendrerit nulla. Vestibulum eget aliquam lorem. Maecenas vitae nunc et felis euismod vestibulum. Morbi ut efficitur sem.
+
+        Integer dictum eleifend eros et fermentum. Pellentesque quis felis id augue blandit euismod ac vel est. Integer vel elit viverra, luctus ipsum id, rhoncus dolor. Suspendisse potenti. Nullam ornare erat ut nisl iaculis, quis tempus neque
+        facilisis. Sed eget libero dolor. Vivamus id orci quis ante varius tincidunt vitae quis dolor. Ut nulla tortor, egestas et diam euismod, mattis luctus neque. Duis dapibus ut ipsum eu volutpat. Maecenas eget tellus tempus, laoreet nisl vel,
+        fringilla augue. Proin blandit diam sit amet sapien scelerisque varius.
+
+        Sed imperdiet consequat est et consequat. Suspendisse consequat ut turpis a viverra. Suspendisse potenti. Donec vehicula eu tortor a facilisis. Maecenas aliquet pharetra aliquet. Suspendisse potenti. Proin tincidunt vitae tortor quis
+        scelerisque. Curabitur eu sem fermentum, imperdiet nibh eget, ultricies eros. Sed ac iaculis eros, eu sollicitudin leo.
+
+        Nulla facilisi. Quisque varius bibendum aliquet. Fusce eu nibh eu mi commodo dignissim. Nunc facilisis ex dui, ac vestibulum justo sollicitudin sed. Integer finibus libero nec suscipit tincidunt. Ut facilisis ullamcorper ex. Fusce auctor ante
+        at elementum tempor. Nam consectetur ultricies lacinia.</p>
+    </div>
+  </div>
+  <div style="height:300px;width:100%"></div>
+
+</body>
+{% endblock %}

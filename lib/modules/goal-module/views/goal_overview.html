@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/goal-module/js/goal_overview.js"></script>
+{% endblock %}
+{% block main %}
+<div id="maia-main-body" class="maia-inner-body">
+      <div id="submenu-height">
+        {% include './__goal_menu.html' %}
+    </div>
+    <div id="maia-body-inner" class="maia-container">
+        <div class="maia-form-container">
+            <div class="wrapper center-block pt-tp-bt-40">
+                <div class="panel-heading">
+                    <h1 class="panel-title label-goal">GOALS SHOWN BY DATE</h1>
+                    <div class="edit-goal-link">
+                        <a href="javascript:void(0);" onclick="getToday()">Today</a>
+                    </div>
+                </div>
+                    <div class="app">
+                        <!-- <div class="app__main">
+                    			<div class="calendar">
+                    					<div id="calendar"></div>
+                            </div>
+                        </div> -->
+                        <div class="calendar"></div>
+                    </div>
+                <div id="accordion" class="panel-group d-none" role="tablist" aria-multiselectable="true"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/skin-Setting/js/skin-settings.js"></script>
+{% endblock %}
+{% block main %}
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+        <div id="submenu-height">
+          <ul class="profile-main-nav">
+              <li><a href="#">Account</a></li>
+              <li class="profile-main-active"><a href="/setting/skin">Skins</a></li>
+              <li><a href="#">Favourites</a></li>
+          </ul>
+        </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+            <div class="maia-form-container setting-profile">
+                <h1 class="setting-profile-heading"><strong>Skins</strong></h1>
+                <!-- <a href="javascript:history.back()">Go Back</a> -->
+            </div>
+            <div class="setting-form-body">
+                <div class="maia-form-container">
+                    <div class="skin-body theme-control"><label class="skin-heading"><strong>Choose a different skin</strong><br></label>
+                        <div class="theme-inpu"><label class="theme-label">Dark Mode</label><label class="toggle-group"><input class="controls" type="radio" id="theme-input-1" name="theme" value="theme-input-1" data-theme="default" checked><span class="toggle-btn round dark"></span></label></div>
+                        <div class="theme-inpu"><label class="theme-label"><strong>LIGHT Mode</strong></label><label class="toggle-group"><input class="controls" type="radio" id="theme-input-2" name="theme" value="theme-input-2" data-theme="light"><span class="toggle-btn round light"></span></label></div>
+                        <div class="theme-inpu"><label class="theme-label"><strong>DYSLEXIA Mode</strong></label><label class="toggle-group"><input class="controls" type="radio" id="theme-input-3" name="theme" value="theme-input-3" data-theme="dyslexia"><span class="toggle-btn round dyslexia"></span></label></div>
+
+                <div class="top-blank-line mrg-tp-40"><label class="skin-heading mrg-tp-bt-30">Current skin</label>
+                    <div class="mode-head">
+                        <div class="mode-div"></div><label class="mode-label">Dark Mode</label></div>
+                    <p class="skin-para">Lighter interfaces work well during the daytime. If a user usually interacts with your product indoors or in rooms with dimmed lights, having a darker UI works better, as there’s less screen glare aggravating the eyes and the user’s
+                        face isn’t lit up by the screen.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,230 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/aboutme-module/js/common.js"></script>
+<script src="/modules/aboutme-module/js/profile_background_edit.js"></script>
+{% endblock %}
+{% block main %}
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+        <div id="submenu-height">
+            <ul class="profile-main-nav">
+                <li class="profile-main-active"><a href="/profile/edit"><strong>ABOUT ME</strong><br></a></li>
+                <li><a href="/profile/keyhealthinfo/edit">KEY HEALTH INFO</a></li>
+                <li><a href="#">KEY CONTACTS</a></li>
+            </ul>
+            <ul class="profile-submenu-nav">
+                <li><a href="/profile/edit">PERSONAL DETAILS<i class="material-icons active-uparrow">arrow_drop_up</i></a></li>
+                <li class="profile-submenu-active"><a href="/profile/aboutme/my-background/edit"><strong>MY BACKGROUND</strong><br><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+                <li><a href="/profile/aboutme/my-needs/edit">MY NEEDS<i class="material-icons active-uparrow">arrow_drop_up</i></a></li>
+            </ul>
+        </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+          <div class="heading-m18-mx22-lb pt-tp-50 maia-form-container pd-bt-10">
+            {{ apos.area(data.page, 'headingBackAdd', {
+                  widgets: {
+                    'apostrophe-rich-text': {
+                      toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                      styles: [
+                        { name: 'Heading', element: 'h1' }
+                      ]
+                    }
+                  }
+                }) }}
+          </div>
+            <!-- <h1 class="heading-m18-mx22-lb pt-tp-50 maia-form-container pd-bt-10"><strong>MY BACKGROUND</strong><br></h1> -->
+            <div class="maia-form-body mrg-bt-40-md pt-tp-0">
+                <div class="maia-form-container">
+                    <form id="my-background-form">
+                        <div class="space-input"><label class="label-head">
+                            <strong>My personal history</strong><br></label>
+                            <textarea class="form-control" maxlength="250" placeholder="Add some information about you and your life" id="pf_personal_history">{{ data.bg_data.personal_history }}</textarea>
+                            <div class="info"></div>
+                        </div>
+                        <div class="space-input"><label class="label-head">
+                            <strong>My family and friends</strong><br></label>
+                            <textarea class="form-control" maxlength="250" placeholder="Add some information about your friends and family" id="pf_family_and_friends">{{ data.bg_data.family_and_friends }}</textarea>
+                            <div class="info"></div>
+                        </div>
+                        <div class="space-input"><label class="label-head">
+                            <strong>How my history affects my lifestyle</strong><br></label>
+                            <textarea class="form-control" maxlength="250" placeholder="If there anything in your past that affets how you live your life?" id="pf_history_affects_lifestyle">{{ data.bg_data.history_affects_lifestyle }}</textarea>
+                            <div class="info"></div>
+                        </div>
+
+                        <!-- values start -->
+                        <div class="space-input"><label class="label-head"><strong>My values</strong><br></label>
+                            <div id="pf_values_container">
+                                <input type="number" id="pf_values_count"
+                                class="d-none" value="{{ data.bg_data.values | length }}">
+                                {% for v in data.bg_data.values %}
+                                <div id="pf_value__{{ loop.index }}">
+                                    <div class="flex-sb">
+                                        <label class="label-head"></label>
+                                        {% if loop.first != true %}
+                                        <a class="delete-link"
+                                            onclick="removeValue('{{ loop.index }}')"
+                                            href="javascript:void(0);">Delete</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex-sb-c">
+                                        <input type="text" class="sm-font-14" placeholder="Add some values" value="{{ v }}">
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="flex-sb-c">
+                                <input class="form-control sm-font-14" type="text" id="pf_value" placeholder="Add one of your values">
+                                <div class="add-link-div">
+                                    <a class="add-icon" href="javascript:void(0);" onclick="addAnotherValue()">
+                                        <div class="add-circle"><i class="fas fa-plus add-circle-icon"></i></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- values end -->
+
+                        <!-- beliefs start -->
+                        <div class="space-input"><label class="label-head"><strong>My beliefs</strong><br></label>
+                            <div id="pf_beliefs_container">
+                                <input type="number" id="pf_beliefs_count"
+                                class="d-none" value="{{ data.bg_data.beliefs | length }}">
+                                {% for b in data.bg_data.beliefs %}
+                                <div id="pf_belief__{{ loop.index }}">
+                                    <div class="flex-sb">
+                                        <label class="label-head"></label>
+                                        {% if loop.first != true %}
+                                        <a class="delete-link"
+                                            onclick="removeBelief('{{ loop.index }}')"
+                                            href="javascript:void(0);">Delete</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex-sb-c">
+                                        <input type="text" class="sm-font-14" placeholder="Add a belief" value="{{ b }}">
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="flex-sb-c">
+                                <input class="form-control sm-font-14" type="text" id="pf_belief" placeholder="Please add a belief">
+                                <div class="add-link-div">
+                                    <a class="add-icon" href="javascript:void(0);" onclick="addAnotherBelief()">
+                                        <div class="add-circle"><i class="fas fa-plus add-circle-icon"></i></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- beliefs end -->
+
+                        <!-- ach start -->
+                        <div class="space-input">
+                            <label class="label-head"><strong>My achievements / interests</strong><br></label>
+                            <div id="pf_achs_container">
+                                <input type="number" id="pf_achs_count"
+                                class="d-none" value="{{ data.bg_data.achievements_interests | length }}">
+                                {% for a in data.bg_data.achievements_interests %}
+                                <div id="pf_ach__{{ loop.index }}">
+                                    <div class="flex-sb">
+                                        <label class="label-head"></label>
+                                        {% if loop.first != true %}
+                                        <a class="delete-link"
+                                            onclick="removeAch('{{ loop.index }}')"
+                                            href="javascript:void(0);">Delete</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex-sb-c">
+                                        <input type="text" class="sm-font-14" placeholder="Add an achievement or interest" value="{{ a }}">
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="flex-sb-c">
+                                <input class="form-control sm-font-14" id="pf_ach" type="text" placeholder="Please add an achievement or interest">
+                                <div class="add-link-div">
+                                    <a class="add-icon" href="javascript:void(0);" onclick="addAnotherAch()">
+                                        <div class="add-circle"><i class="fas fa-plus add-circle-icon"></i></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ach end -->
+
+                        <!-- places start -->
+                        <div class="space-input">
+                            <label class="label-head"><strong>My favourite places to live or visit</strong><br></label>
+                            <div id="pf_places_container">
+                                <input type="number" id="pf_places_count"
+                                class="d-none" value="{{ data.bg_data.places_to_live_visit | length }}">
+                                {% for p in data.bg_data.places_to_live_visit %}
+                                <div id="pf_place__{{ loop.index }}">
+                                    <div class="flex-sb">
+                                        <label class="label-head"></label>
+                                        {% if loop.first != true %}
+                                        <a class="delete-link"
+                                            onclick="removePlace('{{ loop.index }}')"
+                                            href="javascript:void(0);">Delete</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex-sb-c">
+                                        <input type="text" class="sm-font-14" placeholder="Add a place to live or visit" value="{{ p }}">
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="flex-sb-c">
+                                <input class="form-control sm-font-14" id="pf_place" type="text" placeholder="Please add a place to live or visit">
+                                <div class="add-link-div">
+                                    <a class="add-icon" href="javascript:void(0);" onclick="addAnotherPlace()">
+                                        <div class="add-circle"><i class="fas fa-plus add-circle-icon"></i></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- places end -->
+
+                    </form>
+                    <div class="flex-end mrg-tp-30">
+                        <button class="btn btn-primary save-btn mrg-rt-20" id="pf-bg-save-btn" type="button">SAVE</button>
+                        <a href="{{ data.parent_route }}">
+                            <button class="btn btn-primary cancel-btn" type="button">CANCEL</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pop-up-hd-sub-ft" style="display: none;">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading"><strong>YOUR BACKGROUND WAS SAVED.</strong><br>
+                </h1>
+                <a href="{{ data.parent_route }}">
+                    <button class="btn btn-primary btn-green" type="button">
+                        <strong>VIEW MY BACKGROUND</strong>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="popup" style="display: none;">
+            <div class="popup-body">
+                <div class="goal-pop-up-card">
+                    <div class="close-right"><i class="material-icons icon-font">highlight_off</i></div>
+                    <div class="popup-msg"><label class="popup-heading color-w"><strong>ARE YOU SURE?</strong><br></label>
+                        <p class="color-w">Deleting this step will permanently delete all the details That you have added. Are you sure you want to delete?</p>
+                        <div class="flex-c-alg-fdc"><button class="btn btn-primary cancel-btn" type="button" onclick="window.location.href = &#39;#&#39;"><strong>YES, DELETE</strong><br></button><a class="return-link" href="#">NO, RETURN TO GOAL</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="popup" style="display: none;">
+            <div class="popup-body">
+                <div class="goal-pop-up-card">
+                    <div class="close-right"><i class="material-icons icon-font">highlight_off</i></div>
+                    <div class="popup-msg"><label class="popup-heading color-w"><strong>ARE YOU SURE?</strong><br></label>
+                        <p class="color-w">Cancelling this step will permanently delete all the details that you have added. Are you sure you want to cancel?</p>
+                        <div class="flex-c-alg-fdc"><button class="btn btn-primary cancel-btn" type="button" onclick="window.location.href = &#39;#&#39;"><strong>YES, CANCEL STEP</strong></button><a class="return-link" href="#">NO, CONTINUE EDITING STEP</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

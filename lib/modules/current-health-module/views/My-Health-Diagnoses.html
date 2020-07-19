@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/current-health-module/js/diagnosis.js"></script>
+{% endblock %}
+{% block main %}
+<div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+  <div id="submenu-height">
+    <ul class="profile-submenu-nav">
+      <li class="profile-submenu-active"><a href="/my-health"><strong>Diagnoses</strong><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+      <li><a href="/my-health/medication">Medication<i class="fa fa-caret-up active-uparrow"></i></a></li>
+      <li><a href="#">Social prescriptions<i class="fa fa-caret-up active-uparrow"></i></a></li>
+    </ul>
+  </div>
+  <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+    <div class="heading-m18-mx22-lb pd-tp-bt-30 maia-form-container">
+      <!-- DIAGNOSES -->
+      {{ apos.area(data.page, 'diagnosesTitle', {
+        widgets: {
+          'apostrophe-rich-text': {
+            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+            styles: [
+            { name: 'Heading', element: 'h1' }
+            ]
+          }
+        }
+      }) }}
+    </div>
+    <div class="maia-form-body mrg-bt-40-md pd-tp-0">
+      <div class="maia-form-container">
+        <div class="tittle-min16-max20 pd-tp-10">
+          <strong>
+            <!-- ADD&nbsp;DIAGNOSES -->
+            {{ apos.area(data.page, 'diagnosesAddTitle', {
+              widgets: {
+                'apostrophe-rich-text': {
+                  toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                  styles: [
+                  { name: 'Heading', element: 'h1' }
+                  ]
+                }
+              }
+            }) }}
+          </strong>
+        </div>
+        <div class="space-input">
+          <div>
+            <label class="label-head">
+              <!-- Add a primary diagnoses -->
+              {{ apos.area(data.page, 'AddlabelPrimary', {
+                widgets: {
+                  'apostrophe-rich-text': {
+                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                    styles: [
+                    { name: 'paragraph', element: 'p' }
+                    ]
+                  }
+                }
+              }) }}
+            </label>
+          </div>
+          <input type="text" class="sm-font-14" placeholder="Add a primary diagnosis">
+
+          <div class="flex-end" id="addInput"><button class="btn btn-primary add-btn-org" type="button" >ADD</button></div>
+        </div>
+        <div>
+          <div class="space-input" >
+            <label class="label-head">
+              <!-- Add a secondary diagnoses -->
+              {{ apos.area(data.page, 'addSecondaryLabel', {
+                widgets: {
+                  'apostrophe-rich-text': {
+                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                    styles: [
+                    { name: 'Heading', element: 'h5' }
+                    ]
+                  }
+                }
+              }) }}
+            </label>
+            <input type="text" class="sm-font-14" placeholder="Add a seconary diagnosis">
+          </div>
+          <div class="flex-end" id="addInput"><button class="btn btn-primary add-btn-org" type="button" >ADD</button></div>
+        </div>
+        <div class="flex-end mrg-tp-bt-30">
+          <button class="btn btn-primary save-btn mrg-rt-20" type="button" onclick="addDiagnosis()">SAVE</button>
+          <button class="btn btn-primary cancel-btn" type="button">CANCEL</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}

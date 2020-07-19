@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/auth-module/js/auth.js"></script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
+{% endblock %}
+{% block main %}
+<!-- <div id="header-height" class="auth-header">
+    <div class="login-header-img"></div>
+    <div class="green-border-lt">
+        <div class="login-div max-md-hide">
+            <div class="auth-login"><a class="login-text" href="/users/login">LOG IN</a></div>
+        </div>
+        <div class="top-heading ">
+            <!-- <h1><strong>GET STARTED</strong><br></h1>
+            <p>Enter your details to get access to your own MAIA dashboard.</p> -->
+            <!-- {{ apos.area(data.page, 'GetStarted', {
+                  widgets: {
+                    'apostrophe-rich-text': {
+                      toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                      styles: [
+                        { name: 'Heading', element: 'h1' },
+                        { name: 'Paragraph', element: 'p' }
+                      ]
+                    }
+                  }
+                }) }}
+        </div>
+    </div>
+</div> -->
+
+<div id="maia-main-body" class="maia-inner-body">
+    <div id="maia-body-inner" class="maia-container pt-bt-40-md">
+        <div class="maia-form-body" >
+          <div id="warning_msg" class="warning-des"></div>
+            <div class="maia-form-container">
+            <form id="signupform" method="POST" >
+                <div style="display:none">
+                    <input style="display:none" id="captchakey" value="{{data.sitekey}}" class="form-control input-txt-bg"
+                      type="text">
+                  </div>
+                    <input type="text" class="d-none" value="{{ data.device_string }}" id="user_device_string" />
+                    <div class="space-input"><label class="label-head"><strong>Full name*</strong></label><input id="signin_first_name" type="text" name="first_name" class="sm-font-14 " placeholder="Please enter your first and last name"></div>
+                <div class="space-input"><label class="label-head"><strong>Email address*</strong><br></label><input id="signin_email" type="text" name="email" class="sm-font-14 " placeholder="Please enter your email address">
+                    <!-- <p class="error-msg">Please enter a valid email address</p> -->
+                </div>
+                <div class="space-input"><label class="label-head"><strong>Mobile number</strong><br></label><input id="signin_phone_number" type="text" name="phone_number" class="sm-font-14 " placeholder="Please enter your mobile number"></div>
+                <div class="space-input">
+                    <div class="flex-sb-c"><label class="label-head"><strong>Password*</strong><br></label><label id="showPassword" class="p-show">show</label></div><input id="signin_password" type="password" name="password" placeholder="Please enter a password"></div>
+                <div class="space-input"><label class="label-head"><strong>Must contain:</strong><br></label>
+                    <div class="flex-div flex-wrap password-must">
+                        <div class="flex-div-col mrg-rt-20 mw-130"><label>- minimum 8 characters</label><label>- 1 uppercase letter</label></div>
+                        <div class="flex-div-col mrg-rt-20 mw-130"><label>- 1 lower case number</label><label>- 1 number</label></div>
+                        <div class="flex-div-col mrg-rt-20 mw-130"><label>- 1 special character</label></div>
+                    </div>
+                </div>
+
+                <div class="flex-c-alg-fdc pt-tp-50 pt-bt-20">
+                  <div class="g-recaptcha" data-sitekey="{{data.sitekey}}"></div>
+                  <button id="signup-submit" class="btn btn-primary btn-green btn-min-md-w-325" name="submit" type="submit"><strong>NEXT</strong></button>
+                    <p class="login-para signin">I already have an account - <a href="/users/login">Click here to login</a></p>
+                </div>
+            </form>
+
+            </div>
+        </div>
+    </div>
+    <div id="pop-up-ht" style="display: none;">
+        <div class="flex-c-alg-fdc">
+            <h1 class="pop-heading">YOUR GOAL HAS BEEN ADDED</h1><button class="btn btn-primary btn-green btn-min-md-w-325" type="button"><strong>VIEW GOALS</strong></button><button class="btn btn-primary btn-outline-yellow" type="button"><strong>ADD ANOTHER</strong><br></button></div>
+    </div>
+</div>
+{% endblock %}

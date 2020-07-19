@@ -1,0 +1,148 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/lifestyle-module/js/lifestyle.js"></script>
+{% endblock %}
+{% block main %}
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+        <div id="submenu-height">
+            <ul class="profile-submenu-nav">
+                <li class="profile-submenu-active"><a href="/lifestyle"><strong>Health factors</strong><br><br><br><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+                <li><a href="/my-health/lifestyle/activities">Hobbies &amp; activities<i class="fa fa-caret-up active-uparrow"></i></a></li>
+            </ul>
+        </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+            <div class="maia-form-container pt-bt-30">
+                <div class="pt-tp-50 pd-bt-10 flex-sb-c">
+                    <div class="heading-m18-mx22-lb">
+                      <!-- <strong>My health factors</strong> -->
+                      {{ apos.area(data.page, 'myhealthViewFactorHeading', {
+                            widgets: {
+                              'apostrophe-rich-text': {
+                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                styles: [
+                                  { name: 'Heading', element: 'h1' }
+                                ]
+                              }
+                            }
+                          }) }}
+                    </div>
+                    <a class="profile-edit-link" href="{{data.slug}}/edit"><strong>Edit health factor</strong><br></a></div>
+                <div class="my-health-card mrg-bt-40-md pd-tp-0">
+                  {% if data.data %}
+                    <div>
+                        <div class="card-heading">
+                          <!-- <strong>Smoking</strong><br> -->
+                          {{ apos.area(data.page, 'viewSmoking', {
+                                widgets: {
+                                  'apostrophe-rich-text': {
+                                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                    styles: [
+                                      { name: 'Heading', element: 'h5' }
+                                    ]
+                                  }
+                                }
+                              }) }}
+                        </div>
+                        <div class="flex-div-col"><label class="profile-card-tittle"> {{data.data.smoking}}</label></div>
+                    </div>
+                    <div>
+                        <div class="card-heading">
+                          <!-- <strong>Drinking per week</strong><br> -->
+                          {{ apos.area(data.page, 'viewDrinkperWeek', {
+                                widgets: {
+                                  'apostrophe-rich-text': {
+                                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                    styles: [
+                                      { name: 'Heading', element: 'h5' }
+                                    ]
+                                  }
+                                }
+                              }) }}
+                        </div>
+                        <div class="flex-div-col"><label class="profile-card-tittle">{{data.data.drinking}} units a week</label></div>
+                    </div>
+                    <div>
+                        <div class="card-heading">
+                          <!-- <strong>Weight</strong><br> -->
+                          {{ apos.area(data.page, 'viewFactorWeight', {
+                                widgets: {
+                                  'apostrophe-rich-text': {
+                                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                    styles: [
+                                      { name: 'Heading', element: 'h5' }
+                                    ]
+                                  }
+                                }
+                              }) }}
+                        </div>
+                        <div class="flex-div-col"><label class="profile-card-tittle">{{data.data.weight}}kg</label></div>
+                    </div>
+                    <div>
+                        <div class="card-heading">
+                          <!-- <strong>Height</strong><br> -->
+                          {{ apos.area(data.page, 'viewFactorHeight', {
+                                widgets: {
+                                  'apostrophe-rich-text': {
+                                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                    styles: [
+                                      { name: 'Heading', element: 'h5' }
+                                    ]
+                                  }
+                                }
+                              }) }}
+                        </div>
+                        <div class="flex-div-col"><label class="profile-card-tittle">{{data.data.height}}</label></div>
+                    </div>
+                    <div>
+                        <div class="card-heading">
+                          <!-- <strong>BMI</strong><br> -->
+                          {{ apos.area(data.page, 'viewBMI', {
+                                widgets: {
+                                  'apostrophe-rich-text': {
+                                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                    styles: [
+                                      { name: 'Heading', element: 'h5' }
+                                    ]
+                                  }
+                                }
+                              }) }}
+                        </div>
+                        <div class="flex-div-col"><label class="profile-card-tittle">{{data.data.bmi}}</label></div>
+                    </div>
+                    <div class="add-another-div mrg-tp-40">
+                      <div id="why-using-bmi" class="add-another-diagnosis pt-0">
+                        <!-- <a><strong>Why are we using BMI?</strong><br></a> -->
+                        {{ apos.area(data.page, 'viewFactorBMI', {
+                              widgets: {
+                                'apostrophe-rich-text': {
+                                  toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                  styles: [
+                                    { name: 'Paragraph', element: 'p' }
+                                  ]
+                                }
+                              }
+                            }) }}
+                      </div>
+                      </div>
+                        {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup" style="display: none;">
+            <div class="popup-body">
+                <div class="goal-pop-up-card">
+                     <div class="popup-msg-bmi whyBmi">
+                        <p class="color-w">The NHS currently uses BMI to determine whether you underweight or overweight.</p>
+                        <p class="color-w mrg-tp-20">We are aware that BMI does not always give an accurate indication of whether you are underweight or overweight. For example, if you are very muscular. Your BMI may indicate that ypu are overweight</p>
+                        <div class="bmi-link">
+                        <a class="color-w" href="#">Read more about the NHS's views on BMI</a>
+                        </div>
+                        <div class="mrg-tp-bt-30 ">
+                                <button class="btn btn-primary add-btn-org p-mrg-0 mrg-center close-bmi" type="button">CLOSE</button>
+                        </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

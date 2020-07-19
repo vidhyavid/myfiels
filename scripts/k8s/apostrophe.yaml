@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: $PHR2_NAMESPACE
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apostrophe-${PHR2_NAMESPACE}
+  namespace: $PHR2_NAMESPACE
+spec:
+  selector:
+    matchLabels:
+      app: apostrophe-${PHR2_NAMESPACE}
+  template:
+    metadata:
+      labels:
+        app: apostrophe-${PHR2_NAMESPACE}
+    spec:
+      containers:
+      - name: apostrophe-${PHR2_NAMESPACE}
+        image: ${PHR_REGISTRY}/${PHR2_NAMESPACE}-apostrophe:v${BUILD_NUMBER}
+        env:
+        - name: NODE_ENV
+          value: development
+        - name: PORT
+          value: '80'
+        - name: MONGO_STRING
+          value: $PHR2_MONGO_STRING
+        - name: SERVICE_PHR
+          value: https://phr-${PHR2_NAMESPACE}-service-controller:3000
+        - name: NODE_TLS_REJECT_UNAUTHORIZED
+          value: '0'
+        - name: CAPTCHA_SITE_KEY
+          value: $PHR2_CAPTCHA_SITE_KEY
+        - name: AZURE_STORAGE_ACCESS_KEY
+          value: $PHR_MAIA_AZURE_STORAGE_ACCESS_KEY
+        - name: AZURE_STORAGE_CONNECTION_STRING
+          value: $PHR_MAIA_AZURE_STORAGE_CONNECTION_STRING
+        - name:  AZURE_DOMAIN_PATH
+          value: $PHR_MAIA_AZURE_DOMAIN_PATH
+        - name: AZURE_BLOB
+          value: $PHR_MAIA_AZURE_BLOB
+        - name: AWS_BUCKET
+          value: $PHR_MAIA_AWS_BUCKET
+        - name : AWS_REGION
+          value: $PHR_MAIA_AWS_REGION
+        - name: AWS_ACCESS_KEY
+          value: $PHR_MAIA_AWS_ACCESS_KEY
+        - name: AWS_SECRET_KEY
+          value: $PHR_MAIA_AWS_SECRET_KEY
+        - name : IMG_UPLOAD_DOMAIN
+          value: $PHR_MAIA_IMG_UPLOAD_DOMAIN
+
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apostrophe-${PHR2_NAMESPACE}
+  namespace: $PHR2_NAMESPACE
+spec:
+  selector:
+    app: apostrophe-${PHR2_NAMESPACE}
+  ports:
+  - port: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: apostrophe-${PHR2_NAMESPACE}
+  namespace: $PHR2_NAMESPACE
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+  - hosts:
+    - $PHR2_DOMAIN
+    secretName: tls-secret-prod
+  rules:
+  - host: $PHR2_DOMAIN
+    http:
+      paths:
+      - backend:
+          serviceName: apostrophe-${PHR2_NAMESPACE}
+          servicePort: 80
+        path: /

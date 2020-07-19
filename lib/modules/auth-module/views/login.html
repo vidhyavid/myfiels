@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/auth-module/js/login.js"></script>
+{% endblock %}
+{% block main %}
+<div class="profile-header">
+    <!-- <div id="header-height" class="login-header-img"></div> -->
+    <div id="maia-main-body" class="maia-inner-body">
+        <div class="flex-c-alg-fdc mrg-tp-bt-50">
+            <!-- <h1 class="maia-heading">MAIA</h1>
+            <p class="home-heading para">Nurturing your health and wellbeing</p> -->
+<div class="maia-heading home-heading para">
+            {{ apos.area(data.page, 'Login', {
+                  widgets: {
+                    'apostrophe-rich-text': {
+                      toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                      styles: [
+                        { name: 'Heading', element: 'h1' },
+                        { name: 'Paragraph', element: 'p' }
+                      ]
+                    }
+                  }
+                }) }}
+                </div>
+        </div>
+
+            <div class="maia-container pt-bt-40-md">
+            <div class="maia-form-body w-line-min-md pt-0 pt-bt-20">
+                <form class="maia-form-container" id="login_form">
+                    <p class="d-none error text-center" id="login-error-msg"></p>
+                    <div class="space-input">
+                        <input type="text" class="d-none" value="{{ data.device_string }}" id="user_device_string" />
+                        <label class="label-head">
+                            <strong>Email or mobile phone number</strong>
+                        </label>
+                        <input type="text" class="sm-font-14"
+                            id="email_phone" name="email_phone"
+                            placeholder="Please enter either your email or phone number">
+                    </div>
+
+                    <div class="space-input">
+                        <div class="flex-sb-c">
+                            <label class="label-head"><strong>Password*</strong><br></label>
+                            <label class="p-show forgot"><a href="/users/forgot"<strong>Forgotten password?</strong></a></label>
+                        </div>
+                        <input type="password" name="password" placeholder="Please enter a password" id="password">
+                    </div>
+
+                    <div class="space-input">
+                        <div class="maia-auth-checkbox-group mrg-0">
+                            <input type="checkbox" id="remember_me">
+                            <label for="remember_me">Remember me<br></label>
+                        </div>
+                    </div>
+
+                    <div class="flex-c-alg-fdc mrg-tp-bt-50">
+                        <button class="btn btn-primary btn-green btn-min-md-w-325" type="submit">NEXT</button>
+                        <p class="signup-para">Don’t have an account yet? <a href="/users/new">Sign up</a><br></p>
+                    </div>
+                </form>
+            </div>
+            </div>
+            </div>
+        </div>
+
+
+    <div class="popup d-none" id="otp_box">
+        <div class="popup-body">
+            <div class="auth-popup-card">
+                <div class="close-right"><i class="material-icons icon-font" id="close-pop-btn">highlight_off</i></div>
+                <div class="popup-msg">
+                    <div class="warning-des"></div>
+                    <label class="popup-heading left-align-max-md"><strong>NEARLY THERE!</strong></label>
+                    <p class="left-align-max-md">
+                        Please enter the 4-digit security code we sent to your email address:
+                    </p>
+                    <div>
+                        <input type="text" class="secutity-code" id="otp_1" maxlength="1">
+                        <input type="text" class="secutity-code" id="otp_2" maxlength="1">
+                        <input type="text" class="secutity-code" id="otp_3" maxlength="1">
+                        <input type="text" class="secutity-code" id="otp_4" maxlength="1">
+                    </div>
+                    <div class="flex-c-alg-fdc">
+                        <button id="login-with-otp-btn" class="btn btn-primary btn-black-outline btn-min-md-w-325" type="button">
+                            <strong>SUBMIT</strong>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-c-alg-fdc pd-tp-30 pt-bt-20">
+                <button  id="login-email-resend" class="btn btn-primary btn-green btn-min-md-w-325" type="button">
+                    <strong>RESEND EMAIL</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

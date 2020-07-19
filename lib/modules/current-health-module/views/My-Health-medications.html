@@ -1,0 +1,154 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/current-health-module/js/add_edit_medication_common.js"></script>
+<script src="/modules/current-health-module/js/add_medication.js"></script>
+{% endblock %}
+{% block main %}
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+        <div id="submenu-height">
+            <ul class="profile-submenu-nav">
+                <li><a href="/my-health">Diagnoses<i class="fa fa-caret-up active-uparrow"></i></a></li>
+                <li class="profile-submenu-active"><a href="/my-health/current-health/medication"><strong>Medication</strong><br><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+                <li><a href="#">Social prescriptions<i class="fa fa-caret-up active-uparrow"></i></a></li>
+            </ul>
+        </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+            <div class="heading-m18-mx22-lb pd-tp-bt-30 maia-form-container">
+              <strong>MEDICATIONS</strong>
+              <strong>
+              {{ apos.area(data.page, 'addMedicationTitle', {
+                    widgets: {
+                      'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                          { name: 'Heading', element: 'h1' }
+                        ]
+                      }
+                    }
+                  }) }}
+                </strong>
+            </div>
+            <div class="maia-form-body mrg-bt-40-md pd-tp-0">
+                <div class="maia-form-container">
+                    <div class="tittle-min16-max20 pd-tp-10">
+                      <!-- <strong>ADD MEDICATIONS</strong> -->
+                      {{ apos.area(data.page, 'addMedicationField', {
+                            widgets: {
+                              'apostrophe-rich-text': {
+                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                styles: [
+                                  { name: 'Heading', element: 'h1' }
+                                ]
+                              }
+                            }
+                          }) }}
+                    </div>
+
+                    <div id="medications-container">
+                        <div id="med__1">
+                            <!-- <div class="space-input">
+                                <a class="delete-link" href="javascript:void(0);">Delete</a>
+                            </div> -->
+                            <div class="space-input">
+                                <label class="label-head">
+                                  <strong>Add a medication</strong>
+                                  {{ apos.area(data.page, 'addMedicationlabel', {
+                                        widgets: {
+                                          'apostrophe-rich-text': {
+                                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                            styles: [
+                                              { name: 'paragraph', element: 'p' }
+                                            ]
+                                          }
+                                        }
+                                      }) }}
+                                </label>
+                                <input type="text" class="sm-font-14" placeholder="Add a medication" id="name__1">
+                            </div>
+                            <div class="space-input">
+                                <label class="label-head">
+                                  <strong>Dose</strong><br>
+                                  {{ apos.area(data.page, 'medicationDose', {
+                                        widgets: {
+                                          'apostrophe-rich-text': {
+                                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                            styles: [
+                                              { name: 'paragraph', element: 'p' }
+                                            ]
+                                          }
+                                        }
+                                      }) }}
+                                </label>
+                                <input type="text" class="sm-font-14"
+                                    id="dose__1"
+                                    placeholder="What strength is your medication?">
+                            </div>
+                            <div class="space-input">
+                                <label class="label-head">
+                                  <strong>Frequency</strong><br>
+                                  {{ apos.area(data.page, 'medicationFrequesntly', {
+                                        widgets: {
+                                          'apostrophe-rich-text': {
+                                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                            styles: [
+                                              { name: 'paragraph', element: 'p' }
+                                            ]
+                                          }
+                                        }
+                                      }) }}
+                                </label>
+                                <input type="text" class="sm-font-14"
+                                    id="frequency__1"
+                                    placeholder="How often do you take it?">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="flex-end">
+                        <button class="btn btn-primary add-btn-org"
+                            id="add_another_med_btn"
+                            type="button">ADD</button>
+                    </div>
+                    <div class="flex-end mrg-tp-bt-30">
+                        <button class="btn btn-primary save-btn mrg-rt-20"
+                            id="add_med_save_btn"
+                            type="button">
+                            SAVE
+                        </button>
+                        <a href="{{ data.parent_route }}">
+                            <button class="btn btn-primary cancel-btn"
+                                type="button">
+                                CANCEL
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pop-up-hd-sub-ft" class="d-none">
+        <div id="med-add-success-pop" class="d-none">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading">YOUR MEDICATIONS HAS BEEN ADDED</h1>
+                <a href="{{ data.parent_route }}">
+                    <button class="btn btn-primary btn-green"
+                        type="button"><strong>VIEW MEDICATIONS</strong>
+                    </button>
+                </a>
+                <a href="{{ data.slug }}">
+                    <button class="btn btn-primary btn-outline-yellow" type="button">
+                        <strong>ADD ANOTHER</strong><br>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div id="med-add-error-pop" class="d-none">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading medication-err">ERROR</h1>
+                <h2 class="pop-heading medication-err">Could not add your medication</h2>
+                <p id="med-error-message"></p>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

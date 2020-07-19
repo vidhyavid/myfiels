@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/mood-module/js/mood.js"></script>
+{% endblock %}
+{% block main %}
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+        <div id="submenu-height">
+          <ul class="profile-submenu-nav">
+              <li class="profile-submenu-active"><a href="/tracker/mood">MOOD<i class="fa fa-caret-up active-uparrow"></i></a></li>
+              <li><a href="/tracker">PROBLEM<i class="fa fa-caret-up active-uparrow"></i></a></li>
+              <li><a href="/tracker/alcohol">ALCOHOL<i class="fa fa-caret-up active-uparrow"></i></a></li>
+          </ul>
+        </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+          <div class="heading-m18-mx22-lb pd-tp-bt-30 maia-form-container">
+            {{ apos.area(data.page, 'headingmoodadd', {
+                  widgets: {
+                    'apostrophe-rich-text': {
+                      toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                      styles: [
+                        { name: 'Heading', element: 'h1' }
+                      ]
+                    }
+                  }
+                }) }}
+          </div>
+            <!-- <h1 class="heading-m18-mx22-lb pd-tp-bt-30 maia-form-container"><strong>MOOD TRACKER</strong><br></h1> -->
+            <div class="maia-form-body mrg-bt-40-md pd-tp-0">
+                <div class="maia-form-container">
+                    <form id="mood-form" method="POST">
+                        <div class="space-input mrg-rt-20"><label class="label-head"><strong>Date</strong><br></label><label class="cal-date">
+                        <input id="mood-date" name="date" autocomplete="off" class="form-control sm-font-14" type="text" placeholder="DD/MM/YYYY"></label></div>
+                        <div class="space-input"><label class="label-head"><strong>How were you feeling?</strong><br></label>
+                            <div class="mood-feeling-li">
+                                <ul>
+                                    <li class="mood-feeling-group"><input type="radio" id="very_happy" name="moods" value="very_happy"><label class="mood-feeling-very-satisfied" for="very_happy"></label></li>
+                                    <li class="mood-feeling-group"><input type="radio" id="happy" name="moods" value="happy"><label class="mood-feeling-satisfied" for="happy"></label></li>
+                                    <li class="mood-feeling-group"><input type="radio" id="neutral" name="moods" value="neutral"><label class="mood-feeling-dissatisfied" for="neutral"></label></li>
+                                    <li class="mood-feeling-group"><input type="radio" id="sad" name="moods" value="sad"><label class="mood-feeling-very-dissatisfied" for="sad"></label></li>
+                                    <li class="mood-feeling-group"><input type="radio" id="very_sad" name="moods" value="very_sad"><label class="mood-feeling-bad" for="very_sad"></label></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="date-wrapper"></div>
+                        <div class="space-area"><label class="label-head"><strong>Do you have any notes for today?</strong><br></label>
+                        <textarea id="notes" name="notes" class="form-control sm-font-14" placeholder="Write a short description of your tracker"></textarea></div>
+                        <div class="flex-end mrg-tp-bt-30">
+                            <input type="submit" class="btn btn-primary save-btn mrg-rt-20" value="SAVE" />
+                            <button class="btn btn-primary cancel-btn" onclick="location.href='{{data.parent_route}}'" type="button">CANCEL</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="pop-up-hd-sub-ft" class="d-none">
+            <div id="mood-add-success-pop" class="d-none">
+                <div class="flex-c-alg-fdc">
+                    <h1 class="pop-heading">YOUR MOOD HAS BEEN ADDED</h1>
+                    <a href="/{{ data.module_root }}/mood">
+                        <button class="btn btn-primary btn-green"
+                            type="button"><strong>VIEW MOOD</strong>
+                        </button>
+                    </a>
+                    <a href="{{ data.slug }}">
+                        <button class="btn btn-primary btn-outline-yellow" type="button">
+                            <strong>ADD ANOTHER</strong><br>
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div id="mood-add-error-pop" class="d-none">
+                <div class="flex-c-alg-fdc">
+                    <h1 class="pop-heading moodication-err">ERROR</h1>
+                    <h2 class="pop-heading moodication-err">Could not add your mood</h2>
+                    <p id="mood-error-message"></p>
+                    <a href="{{ data.slug }}">
+                        <button class="btn btn-primary btn-outline-yellow" type="button">
+                            <strong>CONTINUE</strong><br>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

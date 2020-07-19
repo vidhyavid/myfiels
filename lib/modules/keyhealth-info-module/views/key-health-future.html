@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/keyhealth-info-module/js/future-care.js"></script>
+{% endblock %}
+{% block main %}
+ <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+    <div id="submenu-height">
+       <ul class="profile-main-nav">
+          <li><a href="/profile/edit">ABOUT ME</a></li>
+          <li class="profile-main-active"><a href="/profile/keyhealthinfo/edit"><strong>KEY HEALTH INFO</strong></a></li>
+          <li><a href="#">KEY CONTACTS</a></li>
+       </ul>
+       <ul class="profile-submenu-nav">
+          <li><a href="/profile/keyhealthinfo/edit">My Health status<i class="material-icons active-uparrow">arrow_drop_up</i></a></li>
+          <li class="profile-submenu-active"><a href="/profile/keyhealthinfo/future-care/edit"><strong>Future care</strong><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+       </ul>
+    </div>
+    <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+      <div class="heading-m18-mx22-lb pt-tp-50 maia-form-container pd-bt-10">
+        {{ apos.area(data.page, 'headingFutureadd', {
+              widgets: {
+                'apostrophe-rich-text': {
+                  toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                  styles: [
+                    { name: 'Heading', element: 'h1' }
+                  ]
+                }
+              }
+            }) }}
+      </div>
+       <!-- <h1 class="heading-m18-mx22-lb pt-tp-50 maia-form-container pd-bt-10"><strong>FUTURE CARE</strong></h1> -->
+       <div class="maia-form-body mrg-bt-40-md pd-tp-0">
+          <div class="maia-form-container">
+            <form id="future-care-form" method="POST">
+             <div class="space-input pt-bt-20">
+                <label class="label-head">Are you a registered organ donor?<br></label>
+                <div class="flex-sb-c mx-w-150">
+                   <div class="radio-btn-group"><label><input type="radio" {{ 'checked' if data.data.organ_donor == true else '' }} name="organ_donor" for="que-no" value="true" class="organ_donor"><span class="radio-checkmark"></span>Yes</label></div>
+                   <div class="radio-btn-group"><label><input type="radio" {{ 'checked' if data.data.organ_donor == false else '' }} name="organ_donor" for="que-no" value="false" class="organ_donor"><span class="radio-checkmark"></span>No</label></div>
+                </div>
+                <div class="add-another-div"><a class="add-another-diagnosis pt-0" href="#"><strong>Become a donor</strong><br></a></div>
+             </div>
+             <div class="organ_donor_wrapper">
+            </div>
+             <div class="space-input pt-bt-20">
+                <label class="label-head"><strong>Have you created an advance decision?</strong><br></label>
+                <div class="flex-sb-c mx-w-150">
+                   <div class="radio-btn-group"><label><input type="radio" {{ 'checked' if data.data.advance_decision == true else '' }} name="advance_decision" for="que-no" value="true" ><span class="radio-checkmark"></span>Yes</label></div>
+                   <div class="radio-btn-group"><label><input type="radio" {{ 'checked' if data.data.advance_decision == false else '' }} name="advance_decision" for="que-no" value="false" ><span class="radio-checkmark"></span>No</label></div>
+                </div>
+                <div class="add-another-div"><a class="add-another-diagnosis pt-0" href="#"><strong>Find out about an advance decision</strong><br></a></div>
+             </div>
+             <div class="space-input pt-bt-20">
+                <label class="label-head"><strong>Have you appointed a power of attorney?</strong><br></label>
+                <div class="flex-sb-c mx-w-150">
+                   <div class="radio-btn-group"><label><input type="radio" {{ 'checked' if data.data.power_attorney == true else '' }} name="power_attorney" for="que-no" value="true" ><span class="radio-checkmark"></span>Yes</label></div>
+                   <div class="radio-btn-group"><label><input type="radio" {{ 'checked' if data.data.power_attorney == false else '' }} name="power_attorney" for="que-no" value="false" ><span class="radio-checkmark"></span>No</label></div>
+                </div>
+                <div class="add-another-div"><a class="add-another-diagnosis pt-0" href="#"><strong>Find out about a power of attorney</strong><br></a></div>
+             </div>
+             <div class="space-input pt-bt-20">
+                <label class="label-head"><strong>Have you created a will?</strong><br></label>
+                <div class="flex-sb-c mx-w-150">
+                   <div class="radio-btn-group"><label><input type="radio" {{ 'checked' if data.data.will == true else '' }} name="will" for="que-no" value="true" ><span class="radio-checkmark"></span>Yes</label></div>
+                   <div class="radio-btn-group"><label><input type="radio" {{ 'checked' if data.data.will == false else '' }}  name="will" for="que-no" value="false" ><span class="radio-checkmark"></span>No</label></div>
+                </div>
+                <div class="add-another-div"><a class="add-another-diagnosis pt-0" href="#"><strong>Find out about creating a will</strong><br></a></div>
+             </div>
+             <div class="flex-end mrg-tp-bt-30">
+               <button class="btn btn-primary save-btn mrg-rt-20" type="submit">Save</button>
+               <button class="btn btn-primary cancel-btn" type="button" onclick="location.href='{{data.parent_route}}'">CANCEL</button></div>
+             </form>
+          </div>
+       </div>
+    </div>
+    <div id="pop-up-hd-sub-ft" class="d-none">
+       <div class="popup-body">
+          <h1 class="pop-heading"><strong>YOUR FUTURE CARE WAS SAVED!</strong></h1>
+          <button onclick="window.location.href='{{data.parent_route}}'" class="btn btn-primary btn-green" type="button"><strong>VIEW FEATURE CARE</strong><br></button>
+       </div>
+    </div>
+    <div class="popup" style="display: none;">
+       <div class="popup-body">
+          <div class="goal-pop-up-card">
+             <div class="close-right"><i class="material-icons icon-font">highlight_off</i></div>
+             <div class="popup-msg">
+                <label class="popup-heading color-w"><strong>ARE YOU SURE?</strong><br></label>
+                <p class="color-w">Deleting this step will permanently delete all the details That you have added. Are you sure you want to delete?</p>
+                <div class="flex-c-alg-fdc"><button class="btn btn-primary cancel-btn" type="button" onclick="window.location.href = &#39;#&#39;"><strong>YES, DELETE</strong><br></button><a class="return-link" href="#">NO, RETURN TO GOAL</a></div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <div class="popup" style="display: none;">
+       <div class="popup-body">
+          <div class="goal-pop-up-card">
+             <div class="close-right"><i class="material-icons icon-font">highlight_off</i></div>
+             <div class="popup-msg">
+                <label class="popup-heading color-w"><strong>ARE YOU SURE?</strong><br></label>
+                <p class="color-w">Cancelling this step will permanently delete all the details that you have added. Are you sure you want to cancel?</p>
+                <div class="flex-c-alg-fdc"><button class="btn btn-primary cancel-btn" type="button" onclick="window.location.href = &#39;#&#39;"><strong>YES, CANCEL STEP</strong></button><a class="return-link" href="#">NO, CONTINUE EDITING STEP</a></div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+{% endblock %}

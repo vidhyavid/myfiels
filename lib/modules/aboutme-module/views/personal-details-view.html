@@ -1,0 +1,129 @@
+{% extends "layout.html" %}
+{% block main %}
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+      <div id="submenu-height">
+          <ul class="profile-main-nav">
+              <li class="profile-main-active"><a href="/profile/edit"><strong>ABOUT ME</strong><br></a></li>
+              <li><a href="/profile/keyhealthinfo/edit">KEY HEALTH INFO</a></li>
+              <li><a href="#">KEY CONTACTS</a></li>
+          </ul>
+          <ul class="profile-submenu-nav">
+              <li class="profile-submenu-active"><a href="/profile/edit"><strong>PERSONAL DETAILS</strong><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+              <li><a href="/profile/aboutme/my-background/edit">MY BACKGROUND<i class="material-icons active-uparrow">arrow_drop_up</i></a></li>
+              <li><a href="/profile/aboutme/my-needs/edit">MY NEEDS<i class="material-icons active-uparrow">arrow_drop_up</i></a></li>
+          </ul>
+      </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+            <div class="maia-form-container pt-bt-30">
+              <div class="pt-tp-50 pd-bt-10 flex-sb-c">
+              <div class="heading-m18-mx22-lb">
+                {{ apos.area(data.page, 'headingprofile', {
+                      widgets: {
+                        'apostrophe-rich-text': {
+                          toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                          styles: [
+                            { name: 'Heading', element: 'h1' }
+                          ]
+                        }
+                      }
+                    }) }}
+              </div>
+                    <!-- <h1 class="heading-m18-mx22-lb"><strong>MY PERSONAL DETAILS</strong><br></h1> -->
+                </div>
+                <div class="my-health-card mrg-bt-40-md pd-tp-0">
+                    <div class="profile-container">
+                        <div class="profile-img-div">
+                            <div class="profile-img-circle">
+                                <div class="profile-img-inner-circle">
+                                    {% if data.about_me.photo_url %}
+                                    <img class="profile-img-view" src="{{ data.about_me.photo_url }}">
+                                    {% else %}
+                                    <img class="profile-img-view" src="/modules/my-apostrophe-assets/img/avatar.png">
+                                    {% endif %}
+                                </div>
+                                <div class="profile-name-div"><label>{{ '“'+data.about_me.nick_name+'”' if  data.about_me.nick_name else "" }}</label></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="flex-div-col">
+                                    <label class="profile-info-list fs-24-md">
+                                        {{ data.about_me.first_name }} {{ data.about_me.last_name }}
+                                    </label>
+                                    <label class="profile-info-list">{{ data.about_me.gender_text }}</label>
+                                    <label class="profile-info-list">Age {{ data.about_me.age }}</label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="flex-div-col max-md-pt-tp-20">
+                                    <label class="profile-info-list">{{ data.about_me.marital_status_text }}</label>
+                                    <label class="profile-info-list">{{ data.about_me.ethnicity_text }}</label>
+                                </div>
+                                <!-- language is in another section entirely -->
+                                <!-- <div class="flex-div-col pd-tp-20">
+                                    <label class="profile-info-list">English speaker</label>
+                                    <label class="profile-info-list">French speaker</label>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="md-line mrg-tp-bt-30 pt-0"></div>
+                        <div class="flex-sb profile-inner-card">
+                            <div class="p-w-50">
+                                <h5 class="profile-heading"><strong>Strengths</strong><br></h5>
+                                <div class="flex-div-col">
+                                    {% for s in data.about_me.strengths %}
+                                    <label class="profile-card-info">{{ s }}</label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="p-w-50">
+                                <h5 class="profile-heading"><strong>Weaknesses</strong><br></h5>
+                                <div class="flex-div-col">
+                                    {% for w in data.about_me.weaknesses %}
+                                    <label class="profile-card-info">{{ w }}</label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-alg-c"><button class="btn btn-primary btn-green" type="button"><strong>VIEW MY COPING STRATEGIES</strong></button></div>
+                        <div class="md-line"></div>
+                        <div>
+                            <h5 class="profile-heading"><strong>MY LONG TERM HEALTH GOALS</strong><br></h5>
+                            <div class="flex-div-col">
+                                {% for hg in data.about_me.health_goals %}
+                                <label class="profile-card-info">{{ hg }}</label>
+                                {% endfor %}
+                            </div>
+                            <div class="flex-alg-c">
+                                <button class="btn btn-primary btn-green" type="button">
+                                    <strong>VIEW MY CURRENT GOALS</strong>
+                                </button>
+                            </div>
+                            <div class="md-line"></div>
+                        </div>
+                        <div>
+                            <h5 class="profile-heading"><strong>MY CONTACT INFO</strong><br></h5>
+                            <div class="flex-div-col">
+                                <label class="profile-card-info">
+                                    {{ data.about_me.address }}
+                                </label>
+                                <label class="profile-card-info">{{ data.about_me.phone_number }}</label>
+                                <label class="profile-card-info pt-0">{{ data.about_me.email }}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-sb mrg-tp-20">
+                  <div class="profile-top-scroll">
+                    <div class="scroll-top-div"><i class="material-icons scroll-top-icon" id="scroll-top">keyboard_arrow_up</i></div>
+                  </div>
+                    <a href="{{ data.slug }}/edit">
+                        <button class="btn btn-primary add-btn-org" type="button">
+                            <strong>EDIT</strong>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

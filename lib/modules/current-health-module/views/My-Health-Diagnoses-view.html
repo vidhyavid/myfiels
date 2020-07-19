@@ -1,0 +1,192 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/current-health-module/js/diagnosis.js"></script>
+{% endblock %}
+{% block main %}
+<p hidden id="primaryDiagnosesJson">{{data.primaryDiagnoses| json}}</p>
+<p hidden id="secondaryDiagnosesJson">{{data.secondaryDiagnoses| json}}</p>
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+        <div id="submenu-height">
+            <ul class="profile-submenu-nav">
+                <li class="profile-submenu-active"><a href="/my-health"><strong>Diagnoses</strong><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+                <li><a href="/my-health/medication">Medication<i class="fa fa-caret-up active-uparrow"></i></a></li>
+                <li><a href="#">Social prescriptions<i class="fa fa-caret-up active-uparrow"></i></a></li>
+            </ul>
+        </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+            <div class="maia-form-container pt-bt-30 medication">
+                <div class="pt-tp-50 pd-bt-10 flex-sb-c">
+                    {% if data.primaryDiagnoses.length>0 %}
+                    <div class="heading-m18-mx22-lb">
+                      <!-- DIAGNOSES -->
+                      {{ apos.area(data.page, 'diagnosesHeadingView', {
+                            widgets: {
+                              'apostrophe-rich-text': {
+                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                styles: [
+                                  { name: 'Heading', element: 'h1' }
+                                ]
+                              }
+                            }
+                          }) }}
+                    </div>
+                    <a class="profile-edit-link" href="{{data.slug}}/edit?type=primary">Edit diagnoses</a>
+                    {% endif %}
+                </div>
+
+                    {% if not data.primaryDiagnoses.length>0 %}
+                      <div class="tittle-min16-max20 pd-tp-10">
+                          <!-- ADD DIAGNOSES -->
+                          {{ apos.area(data.page, 'viewDiagnosesTitle', {
+                                widgets: {
+                                  'apostrophe-rich-text': {
+                                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                    styles: [
+                                      { name: 'Heading', element: 'h1' }
+                                    ]
+                                  }
+                                }
+                              }) }}
+                      </div>
+                      <div class="space-input">
+                      <div>
+                        <label class="label-head">
+                          <!-- Add a primary diagnoses -->
+                          {{ apos.area(data.page, 'primaryDiagnoeseLabel', {
+                                widgets: {
+                                  'apostrophe-rich-text': {
+                                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                    styles: [
+                                      { name: 'paragraph', element: 'p' }
+                                    ]
+                                  }
+                                }
+                              }) }}
+                      </label>
+                    </div>
+                    <input type="text" data-type="primary" class="sm-font-14 diagnosisInputprimary" placeholder="Add a primary diagnosis">
+                      <div class="flex-end" id="addInput"><button class="btn btn-primary add-btn-org" type="button" >ADD</button></div>
+                      <div class="flex-end mrg-tp-bt-30"><button class="btn btn-primary save-btn mrg-rt-20" type="button" data-type="primary" id="save">SAVE</button><a href="{{ data.req }}">
+                        <a href="{{ data.req }}">
+                            <button class="btn btn-primary cancel-btn"
+                                type="button">
+                                CANCEL
+                            </button>
+                        </a>
+                    </a></div>
+                      </div>
+                    {% endif %}
+
+                    {% if data.primaryDiagnoses.length>0 %}
+                <div class="my-health-card mrg-bt-40-md pd-tp-0" >
+                    <div class="flex-div-col" id="pBlock">
+                        <div class="card-heading">
+                          <!-- primary diagnoses -->
+                          {{ apos.area(data.page, 'primaryDiagnosesHeading', {
+                                widgets: {
+                                  'apostrophe-rich-text': {
+                                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                    styles: [
+                                      { name: 'Heading', element: 'h5' }
+                                    ]
+                                  }
+                                }
+                              }) }}
+                        </div>
+
+
+                        {% for item in data.primaryDiagnoses.slice(0, 5) %}
+
+                        <label class="profile-card-tittle addedPrimaryDiagnoses" >{{item.diagnosis}}</label>
+                        {% endfor %}
+
+                      </div>
+                </div>
+                <div class="add-another-div" id="primaryDiagnosis"><a href="javascript:void(0);" class="add-another-diagnosis"><strong>Add another primary diagnosis</strong></a></div>
+                {% endif %}
+                <div class="pt-tp-50 pd-bt-10 flex-end">{% if data.secondaryDiagnoses.length>0 %}<a class="profile-edit-link" href="{{data.slug}}/edit?type=secondary">Edit diagnoses</a>
+                    {% endif %}
+                </div>
+
+                {% if not data.secondaryDiagnoses.length>0 %}
+                  <div class="tittle-min16-max20"><h1 class="pd-tp-10"><strong>ADD&nbsp;DIAGNOSES</strong><br></h1></div>
+                  <div class="space-input">
+                  <div><label class="label-head">
+                      <!-- Add a secondary diagnoses -->
+                      {{ apos.area(data.page, 'secondaryDiagnosesLabel', {
+                            widgets: {
+                              'apostrophe-rich-text': {
+                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                styles: [
+                                  { name: 'paragraph', element: 'p' }
+                                ]
+                              }
+                            }
+                          }) }}
+                  </label></div><input type="text" data-type="secondary" class="sm-font-14 diagnosisInputsecondary" placeholder="Add a seconary diagnosis">
+                  <div class="flex-end" id="addInputSecondary"><button class="btn btn-primary add-btn-org" type="button" >ADD</button></div>
+                  <div class="flex-end mrg-tp-bt-30"><button class="btn btn-primary save-btn mrg-rt-20" type="button" data-type="secondary" id="save">SAVE</button><a href="{{ data.req }}">
+                    <a href="{{ data.req }}">
+                        <button class="btn btn-primary cancel-btn"
+                            type="button">
+                            CANCEL
+                        </button>
+                    </a></div>
+                  </div>
+                {% endif %}
+
+                {% if data.secondaryDiagnoses.length>0 %}
+                <div class="my-health-card mrg-bt-40-md pd-tp-0" >
+                    <div class="flex-div-col" id="sBlock">
+                        <div class="card-heading ">
+                            <!-- Secondary diagnoses -->
+                            {{ apos.area(data.page, 'secondaryDiagnosesCard', {
+                                  widgets: {
+                                    'apostrophe-rich-text': {
+                                      toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                      styles: [
+                                        { name: 'Heading', element: 'h5' }
+                                      ]
+                                    }
+                                  }
+                                }) }}
+                        </div>
+
+
+                          {% for item in data.secondaryDiagnoses.slice(0, 5) %}
+
+                          <label class="profile-card-tittle addedSecondaryDiagnoses" >{{item.diagnosis}}</label>
+                          {% endfor %}
+
+
+                    </div>
+                </div>
+                <div class="add-another-div" ><a href="javascript:void(0);" class="add-another-diagnosis" id="secondaryDiagnosis"><strong>Add another secondary diagnosis</strong></a></div>
+                {% endif %}
+
+                <div class="flex-alg-c mrg-tp-bt-30"><button class="btn btn-primary save-btn" type="button" id="viewMore"><strong>VIEW 5 MORE DIAGNOSES</strong></button></div>
+            </div>
+
+        </div>
+        <div id="pop-up-hd-sub-ft" class="d-none">
+        <div id="diag-add-success-pop" class="d-none">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading">YOUR DIAGNOSES HAS BEEN ADDED</h1>
+                <a href="{{ data.parent_route }}">
+                    <button class="btn btn-primary btn-green"
+                        type="button"><strong>VIEW DIAGNOSES</strong>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div id="diag-add-error-pop" class="d-none">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading">ERROR</h1>
+                <h2 class="pop-heading">Could not add your diagnosis</h2>
+                <p id="diag-error-message"></p>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

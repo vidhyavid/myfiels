@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/problem-module/js/problem.js"></script>
+{% endblock %}
+{% block main %}
+<input type="text" hidden name="" id="problemId" >
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+      <div id="submenu-height">
+      {% include './_tracker_menu.html' %}
+      </div>
+      <input type="hidden" class="hid_pb_name" value="{{ 'PROBLEM' if not data.user_data.problem.name else data.user_data.problem.name }}">
+
+        <div id="maia-body-inner" class="maia-container hidepb_div">
+            <div class="heading-m18-mx22-lb pd-tp-bt-30 maia-form-container">
+              <!--PROBLEM TRACKER-->
+              {{ apos.area(data.page, 'headingProblemAdd', {
+                    widgets: {
+                      'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                          { name: 'Heading', element: 'h1' }
+                        ]
+                      }
+                    }
+                  }) }}
+            </div>     
+           
+            <div class="maia-form-body mrg-bt-40-md pd-tp ">
+                <div class="maia-form-container">
+                    <div class="space-input">
+                        <div><label class="label-head"><strong>What problem would you like to track?</strong><br></label></div><input id="problemName" type="text" class="sm-font-14" placeholder="Enter a name of tracker"></div>
+                    <div class="space-area"><label class="label-head"><strong>Tracker description</strong><br></label><textarea class="sm-font-14" id="problemDescription" placeholder="Write a short description of your tracker"></textarea></div>
+                    <div class="flex-end mrg-tp-bt-30"><button class="btn btn-primary save-btn mrg-rt-20" type="button" id="save">SAVE</button><a href="/tracker/problem/view"><button class="btn btn-primary cancel-btn" type="button">CANCEL</button></a></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="pop-up-hd-sub-ft" class="d-none porblem_add"> 
+        <div id="prob-add-success-pop" class="d-none porblem_add1">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading problemheading">YOUR PROBLEM HAS BEEN ADDED</h1>
+                <a href="{{ data.page.slug }}/add">
+                    <button class="btn btn-primary btn-green"
+                        type="button"><strong>ADD PROBLEM ENTRY</strong>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div id="prob-add-error-pop" class="d-none">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading">ERROR</h1>
+                <h2 class="pop-heading">Could not add your problem</h2>
+                <p id="prob-error-message"></p>
+                <a href="{{ data.page.slug }}/view">
+                    <button class="btn btn-primary btn-green"
+                        type="button"><strong>VIEW PROBLEM</strong>
+                    </button>
+                </a>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

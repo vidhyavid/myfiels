@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/alcohol-module/js/alcohol.js"></script>
+{% endblock %}
+{% block main %}
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+        <div id="submenu-height">
+            <ul class="profile-submenu-nav">
+                <li><a href="/tracker/mood">MOOD<i class="fa fa-caret-up active-uparrow"></i></a></li>
+                <li><a href="/tracker">PROBLEM<i class="fa fa-caret-up active-uparrow"></i></a></li>
+                <li class="profile-submenu-active"><a href="/tracker/alcohol"><strong>Alcohol</strong><i class="fa fa-caret-up active-uparrow"></i></a></li>
+            </ul>
+        </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+          <div class="heading-m18-mx22-lb pd-tp-bt-30 maia-form-container">
+            {{ apos.area(data.page, 'headingAlcoholADD', {
+                  widgets: {
+                    'apostrophe-rich-text': {
+                      toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                      styles: [
+                        { name: 'Heading', element: 'h1' }
+                      ]
+                    }
+                  }
+                }) }}
+          </div>
+            <!-- <h1 class="heading-m18-mx22-lb pd-tp-bt-30 maia-form-container"><strong>ALCOHOL TRACKER</strong><br></h1> -->
+            <div class="maia-form-body mrg-bt-40-md pd-tp-0">
+                <div class="maia-form-container">
+                    <form id="alcohol-form" method="POST">
+                        <div class="space-input mrg-rt-20"><label class="label-head"><strong>Date</strong><br></label><label class="cal-date">
+                        <input id="alcohol-date" name="date" autocomplete="off" class="form-control sm-font-14" type="text" placeholder="DD/MM/YYYY"></label></div>
+                        <div class="space-input">
+                        <label class="label-head">How did you cope with your alcohol intake?<br></label>
+                        <div class="maia-select mrg-bt-10 mrg-tp-0 w-100">
+                        <select name="units" id="units">
+                            <option value selected disabled>None</option>
+                            <option value="0">Very Poor</option>
+                            <option value="1">Poor</option>
+                            <option value="2">Okay</option>
+                            <option value="3">well</option>
+                            <option value="4">Very well</option>
+                            <option value="5">Excellent</option>
+                        </select>
+                        </div>
+                        </div>
+                        <div class="date-wrapper"></div>
+                        <div class="space-area"><label class="label-head"><strong>Do you have any notes for today?</strong><br></label><textarea id="notes" name="notes" class="form-control sm-font-14" placeholder="Enter any notes you have."></textarea></div>
+                        <div class="flex-end mrg-tp-bt-30">
+                        <input type="submit" class="btn btn-primary save-btn mrg-rt-20" value="SAVE" />
+                        <!-- <button class="btn btn-primary save-btn mrg-rt-20" type="button">SAVE</button> -->
+                        <button class="btn btn-primary cancel-btn" onclick="location.href='{{data.parent_route}}'" type="button">CANCEL</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="pop-up-hd-sub-ft" class="d-none">
+            <div id="alcohol-add-success-pop" class="d-none">
+                <div class="flex-c-alg-fdc">
+                    <h1 class="pop-heading">YOUR ALCOHOL HAS BEEN ADDED</h1>
+                    <a href="/{{ data.module_root }}/alcohol">
+                        <button class="btn btn-primary btn-green"
+                            type="button"><strong>VIEW ALCOHOL</strong>
+                        </button>
+                    </a>
+                    <a href="{{ data.slug }}">
+                        <button class="btn btn-primary btn-outline-yellow" type="button">
+                            <strong>ADD ANOTHER</strong><br>
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div id="alcohol-add-error-pop" class="d-none">
+                <div class="flex-c-alg-fdc">
+                    <h1 class="pop-heading alcoholication-err">ERROR</h1>
+                    <h2 class="pop-heading alcoholication-err">Could not add your alcohol</h2>
+                    <p id="alcohol-error-message"></p>
+                    <a href="{{ data.slug }}">
+                        <button class="btn btn-primary btn-outline-yellow" type="button">
+                            <strong>CONTINUE</strong><br>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

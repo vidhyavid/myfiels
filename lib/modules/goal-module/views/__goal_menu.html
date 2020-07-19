@@ -1,0 +1,17 @@
+<ul class="profile-submenu-nav">
+  <li class="{{ 'profile-submenu-active' if data.page_name == 'overview' else ''  }}">
+    <a href="/{{ data.module_root }}/goal">OVERVIEW
+      <i class="fa fa-caret-up active-uparrow"></i>
+    </a>
+  </li>
+  <li class="{{ 'profile-submenu-active' if data.page_name == 'add' else ''  }}">
+    <a href="/{{ data.module_root }}/goal/add">ADD NEW GOAL<br>
+      <i class="fa fa-caret-up active-uparrow"></i>
+    </a>
+  </li>
+  <li class="{{ 'profile-submenu-active' if data.page_name == 'archived' else ''  }}">
+    <a href="/{{ data.module_root }}/goal/archived">ARCHIVED GOALS
+      <i class="fa fa-caret-up active-uparrow"></i>
+    </a>
+  </li>
+</ul>

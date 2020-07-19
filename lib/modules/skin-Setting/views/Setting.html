@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+{% endblock %}
+{% block main %}
+<div id="header-height" class="track-header">
+        <div class="login-header-img"></div>
+        <div class="top-profile">
+            <div class="profile-nav">
+                <ul class="profile-menu">
+                    <li><a href="/my-health">MY HEALTH</a></li>
+                    <li><a href="/tracker/goal">TRACKING</a></li>
+                    <li><a href="#">CONNECT</a></li>
+                    <li><a href="#">RESOURCES</a></li>
+                </ul>
+            </div>
+            <div class="profile-login"><a class="profile-text" href="index.html">SARAH W</a></div>
+        </div>
+        <div class="top-heading pt-top-0">
+            <h1><strong>SETTINGS</strong></h1>
+        </div>
+    </div>
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+        <div id="submenu-height">
+          <ul class="profile-main-nav">
+              <li class="profile-main-active"><a href="/setting"><strong>Account</strong><br></a></li>
+              <li><a href="/setting/skin">Skins</a></li>
+              <li><a href="#">Favourites</a></li>
+          </ul>
+        </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+            <div class="maia-form-container setting-profile">
+                <a class="profile-link mrg-tp-20" href="#">
+                    <div class="profile-circle"></div>
+                </a>
+                <h1 class="setting-profile-heading">SARAH WELTON</h1>
+            </div>
+            <div class="setting-form-body">
+                <div class="maia-form-container">
+                    <div class="setting-body">
+                        <ul class="setting-menu-list">
+                            <li><a href="#">Default homepage</a></li>
+                            <li><a href="#">Log out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

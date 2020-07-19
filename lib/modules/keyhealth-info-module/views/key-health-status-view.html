@@ -1,0 +1,170 @@
+{% extends "layout.html" %}
+{% block main %}
+ <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+    <div id="submenu-height">
+      <ul class="profile-main-nav">
+         <li><a href="/profile/edit">ABOUT ME</a></li>
+         <li class="profile-main-active"><a href="/profile/keyhealthinfo/edit"><strong>KEY HEALTH INFO</strong></a></li>
+         <li><a href="#">KEY CONTACTS</a></li>
+      </ul>
+       <ul class="profile-submenu-nav">
+          <li class="profile-submenu-active"><a href="/profile/keyhealthinfo/edit"><strong>My Health status</strong><i class="fa fa-caret-up active-uparrow"></i></a></li>
+          <li><a href="/profile/keyhealthinfo/future-care/edit">Future care<i class="fa fa-caret-up active-uparrow"></i></a></li>
+       </ul>
+    </div>
+    <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+       <div class="maia-form-container">
+          <div class="wrapper center-block pt-tp-bt-40">
+             <div id="accordion" class="panel-group" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                   <div id="heading-1" class="panel-heading" role="tab">
+                      <h1 class="panel-title"><a href="#collapse-1" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" aria-controls="collapse-1"><strong>IMPORTANT INFORMATION</strong></a></h1>
+                      <div class="edit-goal-link"><a href="{{data.parent_route}}/keyhealthinfo/edit">{{"Edit" if data.data else "Add"}}</a></div>
+                   </div>
+                   <div id="collapse-1" class="panel-collapse" role="tabpanel" aria-labelledby="heading-1" aria-expanded="true">
+                      <div class="maia-panel-body">
+                         <div>
+                            <h5 class="card-heading"><strong>NHS NUMBER</strong><br></h5>
+                            <div class="flex-div-col"><label class="profile-card-tittle">{{data.data.nhs_number if data.data.nhs_number else "N/A"}}</label></div>
+                         </div>
+                         <div>
+                            <h5 class="card-heading"><strong>Hospital number</strong><br></h5>
+                            <div class="flex-div-col">
+                               <label class="profile-card-tittle">
+                               {% for item in data.data.hospital_number %}
+                                     <div clss="item">{{item if item else "N/A"}}</div>
+                                     {% else %}
+                                     <div clss="no-item">N/A</div>
+                               {% endfor %}
+                              </label>
+                           </div>
+                         </div>
+                         <div>
+                            <h5 class="card-heading"><strong>Name of hospital</strong><br></h5>
+                            <div class="flex-div-col">
+                               <label class="profile-card-tittle">
+                                 {% for item in data.data.hospital_name %}
+                                 <div clss="item">{{item if item else "N/A"}}</div>
+                                 {% else %}
+                                 <div clss="no-item">N/A</div>
+                                 {% endfor %}
+                              </label>
+                              </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                <div class="panel panel-default">
+                   <div id="heading-2" class="panel-heading pd-tp-30" role="tab">
+                      <h1 class="panel-title"><a href="#collapse-2" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" aria-controls="collapse-2"><strong>MY HEALTH STATUS</strong><br></a></h1>
+                      <div class="edit-goal-link"><a href="{{data.parent_route}}/keyhealthinfo/edit">{{"Edit" if data.data else "Add"}}</a></div>
+                   </div>
+                   <div id="collapse-2" class="panel-collapse" role="tabpanel" aria-labelledby="heading-2" aria-expanded="true">
+                      <div class="maia-panel-body">
+                         <div class="row mrg-tp-20">
+                            <div class="col-6">
+                               <div class="flex-alg-item-fs pd-tp-bt-10">
+                                  <div class="profile-health-icon"><img src="/modules/my-apostrophe-assets/img/opacity-24px.svg"></div>
+                                  <label class="profile-health-icon-label">Blood type {{data.data.blood_type if data.data.blood_type else "N/A"}}</label>
+                               </div>
+                            </div>
+                            <div class="col-6">
+                               <div class="flex-alg-item-fs pd-tp-bt-10">
+                                  <div class="profile-health-icon"><img src="/modules/my-apostrophe-assets/img/immunisations.svg"></div>
+                                  <label class="profile-health-icon-label">
+                                     {% for item in data.data.immunisations %}
+                                     <div clss="item">{{item if item else "N/A"}}</div>
+                                     {% else %}
+                                     <div clss="no-item">N/A</div>
+                                     {% endfor %}
+                                 </label>
+                               </div>
+                            </div>
+                            <div class="col-6">
+                               <div class="flex-alg-item-fs pd-tp-bt-10">
+                                  <div class="profile-health-icon"><img src="/modules/my-apostrophe-assets/img/directions_run-24px.svg"></div>
+                                  <label class="profile-health-icon-label">
+                                     {% for item in data.data.physical_health_diagnosis %}
+                                     <div clss="item">{{item if item else "N/A"}}</div>
+                                     {% else %}
+                                     <div clss="no-item">N/A</div>
+                                     {% endfor %}
+                                    </label>
+                               </div>
+                            </div>
+                            <div class="col-6">
+                               <div class="flex-alg-item-fs pd-tp-bt-10">
+                                  <div class="profile-health-icon"><img src="/modules/my-apostrophe-assets/img/language-24px.svg"></div>
+                                  <label class="profile-health-icon-label">
+                                     {% for item in data.data.language %}
+                                     <div clss="item">{{item if item else "N/A"}}</div>
+                                     {% else %}
+                                     <div clss="no-item">N/A</div>
+                                     {% endfor %}
+                                 </label>
+                               </div>
+                            </div>
+                            <div class="col-6">
+                               <div class="flex-alg-item-fs pd-tp-bt-10">
+                                  <div class="profile-health-icon"><img src="/modules/my-apostrophe-assets/img/spa-24px.svg"></div>
+                                  <label class="profile-health-icon-label">
+                                     {% for item in data.data.mental_health_diagnosis %}
+                                     <div clss="item">{{item if item else "N/A"}}</div>
+                                     {% else %}
+                                     <div clss="no-item">N/A</div>
+                                     {% endfor %}
+                                    </label>
+                               </div>
+                            </div>
+                            <div class="col-6">
+                               <div class="flex-alg-item-fs pd-tp-bt-10">
+                                  <div class="profile-health-icon"><img src="/modules/my-apostrophe-assets/img/accessible-24px.svg"></div>
+                                  <label class="profile-health-icon-label">{{ "I have mobility needs" if data.data.mobility else "N/A" }}</label>
+                               </div>
+                            </div>
+                            <div class="col-6">
+                               <div class="flex-alg-item-fs pd-tp-bt-10">
+                                  <div class="profile-health-icon"><img src="/modules/my-apostrophe-assets/img/medication.svg"></div>
+                                  <label class="profile-health-icon-label">
+                                     {% for item in data.data.medications %}
+                                     <div clss="item">{{item if item else "N/A"}}</div>
+                                     {% else %}
+                                     <div clss="no-item">N/A</div>
+                                     {% endfor %}
+                                    </label>
+                               </div>
+                            </div>
+                            <div class="col-6">
+                               <div class="flex-alg-item-fs pd-tp-bt-10">
+                                  <div class="profile-health-icon"><img src="/modules/my-apostrophe-assets/img/visibility_off-24px.svg"></div>
+                                  <label class="profile-health-icon-label">{{ "I have vision needs" if data.data.vision else "N/A" }}</label>
+                               </div>
+                            </div>
+                            <div class="col-6">
+                               <div class="flex-alg-item-fs pd-tp-bt-10">
+                                  <div class="profile-health-icon"><img src="/modules/my-apostrophe-assets/img/allergies.svg"></div>
+                                  <label class="profile-health-icon-label">
+                                     {% for item in data.data.allergies %}
+                                     <div clss="item">{{item if item else "N/A"}}</div>
+                                     {% else %}
+                                     <div clss="no-item">N/A</div>
+                                     {% endfor %}
+                                    </label>
+                               </div>
+                            </div>
+                            <div class="col-6">
+                               <div class="flex-alg-item-fs pd-tp-bt-10">
+                                  <div class="profile-health-icon"><img src="/modules/my-apostrophe-assets/img/hearing-24px.svg"></div>
+                                  <label class="profile-health-icon-label">{{ "I have hearing needs" if data.data.hearing else "N/A" }}</label>
+                               </div>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+{% endblock %}

@@ -1,0 +1,210 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/lifestyle-module/js/lifestyle.js"></script>
+{% endblock %}
+{% block main %}
+<div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+   <div id="submenu-height">
+      <ul class="profile-submenu-nav">
+         <li class="profile-submenu-active"><a href="/lifestyle"><strong>Health factors</strong><br><br><br><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+         <li><a href="/my-health/lifestyle/activities">Hobbies &amp; activities<i class="fa fa-caret-up active-uparrow"></i></a></li>
+      </ul>
+   </div>
+   <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+      <h1 class="heading-m18-mx22-lb pd-tp-bt-30 maia-form-container">
+        <!-- <strong>My health factors</strong> -->
+        {{ apos.area(data.page, 'myhealthFactorHeading', {
+              widgets: {
+                'apostrophe-rich-text': {
+                  toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                  styles: [
+                    { name: 'Heading', element: 'h1' }
+                  ]
+                }
+              }
+            }) }}
+      </h1>
+      <div class="maia-form-body mrg-bt-40-md pd-tp-0">
+         <div class="maia-form-container">
+            <form id="health-factor-form" method="POST" >
+               <div class="space-input">
+                  <label class="label-head">
+                    <!-- <strong>Smoking</strong> -->
+                    {{ apos.area(data.page, 'smoking', {
+                          widgets: {
+                            'apostrophe-rich-text': {
+                              toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                              styles: [
+                                { name: 'Paragraph', element: 'p' }
+                              ]
+                            }
+                          }
+                        }) }}
+                  </label>
+                  <div class="maia-select mrg-bt-10 mrg-tp-0 w-100">
+                     <select required name="smoking" id="smoking">
+                        <option value selected disabled>Select your smoking status</option>
+                        <option value="1" {{ 'selected' if data.data.smoking == 1 else '' }}>Current Smoker</option>
+                        <option value="2" {{ 'selected' if data.data.smoking == 2 else '' }}>Ex-smoker</option>
+                        <option value="3" {{ 'selected' if data.data.smoking == 3 else '' }}>Non-smoker - history unknown</option>
+                        <option value="4" {{ 'selected' if data.data.smoking == 4 else '' }}>Never smoked</option>
+                        <option value="5" {{ 'selected' if data.data.smoking == 5 else '' }}>Not stated</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="smoking_wrapper"></div>
+               <div class="space-input">
+                  <label class="label-head">
+                    <!-- <strong>Drinking per week</strong> -->
+                    {{ apos.area(data.page, 'drinkingWeek', {
+                          widgets: {
+                            'apostrophe-rich-text': {
+                              toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                              styles: [
+                                { name: 'Paragraph', element: 'p' }
+                              ]
+                            }
+                          }
+                        }) }}
+                  </label>
+                  <div class="maia-select mrg-bt-10 mrg-tp-0 w-100">
+                     <select required name="drinking" id="drinking">
+                        <option value selected disabled>Select how much alcohol you drink</option>
+                        {%for i in range(1, 100)%}
+                        <option value="{{i}}" {{ 'selected' if data.data.drinking == i else '' }}>{{i}}</option>
+                        {% endfor %}
+                     </select>
+                  </div>
+               </div>
+               <div class="drinking_wrapper"></div>
+               <div class="space-input">
+                  <label class="label-head">
+                    <!-- <strong>Weight</strong><br> -->
+                    {{ apos.area(data.page, 'factorWeight', {
+                          widgets: {
+                            'apostrophe-rich-text': {
+                              toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                              styles: [
+                                { name: 'Paragraph', element: 'p' }
+                              ]
+                            }
+                          }
+                        }) }}
+                  </label>
+                  <div class="maia-select mrg-bt-10 mrg-tp-0 w-100">
+                     <select class ="bmi-calculation" required name="weight" id="health-factor-weight">
+                        <option value selected disabled>How much do you weight?</option>
+                        {%for i in range(1, 201)%}
+                        <option value="{{i}}" {{ 'selected' if data.data.weight == i else '' }}>{{i}}</option>
+                        {% endfor %}
+                     </select>
+                  </div>
+               </div>
+               <div class="weight_wrapper"></div>
+               <div class="space-input">
+                  <label class="label-head">
+                    <!-- <strong>Height</strong> -->
+                    {{ apos.area(data.page, 'factorHeight', {
+                          widgets: {
+                            'apostrophe-rich-text': {
+                              toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                              styles: [
+                                { name: 'Paragraph', element: 'p' }
+                              ]
+                            }
+                          }
+                        }) }}
+                  </label>
+                  <div class="maia-select mrg-bt-10 mrg-tp-0 w-100">
+                     <select class ="bmi-calculation" required name="height" id="health-factor-height">
+                        <option value selected disabled>How tall are you?</option>
+                        {%for i in range(30, 251)%}
+                        <!-- {%
+                            set ht_ft = i/30.48 | round | float
+                        %} -->
+                        <option value="{{i}}" {{ 'selected' if data.data.height == i else '' }}>{{i}}</option>
+                        {% endfor %}
+                     </select>
+                  </div>
+               </div>
+               <div class="height_wrapper"></div>
+               <div class="space-input">
+                 <div class="label-head">
+                   <!-- <strong>BMI</strong> -->
+                   {{ apos.area(data.page, 'factorBMI', {
+                         widgets: {
+                           'apostrophe-rich-text': {
+                             toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                             styles: [
+                               { name: 'Paragraph', element: 'p' }
+                             ]
+                           }
+                         }
+                       }) }}
+                 </div>
+                   <input readonly id="health-factor-bmi" type="text" name="bmi" class="sm-font-14" placeholder="This will be calculated for you" value="{{ data.data.bmi if data.data.height else '' }}"></div>
+               <div class="add-another-diagnosis pt-0" id="why-using-bmi">
+                 <!-- <strong>Why are we using BMI?</strong> -->
+                 {{ apos.area(data.page, 'factorUsignBmi', {
+                       widgets: {
+                         'apostrophe-rich-text': {
+                           toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                           styles: [
+                             { name: 'Paragraph', element: 'p' }
+                           ]
+                         }
+                       }
+                     }) }}
+             </div>
+               <div class="flex-end mrg-tp-bt-30">
+                  <input class="btn btn-primary save-btn mrg-rt-20" type="submit" />
+                  <a class="btn btn-primary cancel-btn" href="{{ data.parent_route }}">Cancel</a>
+                  <!-- <button class="btn btn-primary save-btn mrg-rt-20" type="button">SAVE</button>
+                     <button class="btn btn-primary cancel-btn" type="button">CANCEL</button> -->
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+   <div id="pop-up-hd-sub-ft" class="d-none">
+   <div id="health-factors-success-pop" class="d-none">
+      <div class="flex-c-alg-fdc">
+          <h1 class="pop-heading">YOUR HEALTH FACTORS HAS BEEN ADDED</h1>
+          <a href="{{ data.parent_route }}">
+              <button class="btn btn-primary btn-green"
+                  type="button"><strong>VIEW HEALTH FACTORS</strong>
+              </button>
+          </a>
+          <!-- <a href="#">
+              <button class="btn btn-primary btn-outline-yellow" type="button">
+                  <strong>ADD ANOTHER</strong><br>
+              </button>
+          </a> -->
+      </div>
+  </div>
+  <div id="health-factors-error-pop" class="d-none">
+      <div class="flex-c-alg-fdc">
+          <h1 class="pop-heading">ERROR</h1>
+          <h2 class="pop-heading">Could not add your health factors</h2>
+          <p id="health-factors-error-message"></p>
+      </div>
+  </div>
+</div>
+</div>
+<div class="popup" style="display: none;">
+        <div class="popup-body">
+            <div class="goal-pop-up-card">
+                 <div class="popup-msg-bmi whyBmi">
+                    <p class="color-w">The NHS currently uses BMI to determine whether you underweight or overweight.</p>
+                    <p class="color-w mrg-tp-20">We are aware that BMI does not always give an accurate indication of whether you are underweight or overweight. For example, if you are very muscular. Your BMI may indicate that ypu are overweight</p>
+                    <div class="bmi-link">
+                    <a class="color-w" href="#">Read more about the NHS's views on BMI</a>
+                    </div>
+                    <div class="mrg-tp-bt-30 ">
+                            <button class="btn btn-primary add-btn-org p-mrg-0 mrg-center close-bmi" type="button">CLOSE</button>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

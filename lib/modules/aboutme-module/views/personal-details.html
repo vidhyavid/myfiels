@@ -1,0 +1,323 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/aboutme-module/js/profile.js"></script>
+<script src="/modules/aboutme-module/js/common.js"></script>
+<script src="/modules/aboutme-module/js/profile_about_me_edit.js"></script>
+{% endblock %}
+{% block main %}
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+        <div id="submenu-height">
+            <ul class="profile-main-nav">
+                <li class="profile-main-active"><a href="/profile/edit"><strong>ABOUT ME</strong><br></a></li>
+                <li><a href="/profile/keyhealthinfo/edit">KEY HEALTH INFO</a></li>
+                <li><a href="#">KEY CONTACTS</a></li>
+            </ul>
+            <ul class="profile-submenu-nav">
+                <li class="profile-submenu-active"><a href="/profile/edit"><strong>PERSONAL DETAILS</strong><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+                <li><a href="/profile/aboutme/my-background/edit">MY BACKGROUND<i class="material-icons active-uparrow">arrow_drop_up</i></a></li>
+                <li><a href="/profile/aboutme/my-needs/edit/edit">MY NEEDS<i class="material-icons active-uparrow">arrow_drop_up</i></a></li>
+            </ul>
+        </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+          <div class="heading-m18-mx22-lb pt-tp-50 maia-form-container pd-bt-10">
+            {{ apos.area(data.page, 'headingprofileadd', {
+                  widgets: {
+                    'apostrophe-rich-text': {
+                      toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                      styles: [
+                        { name: 'Heading', element: 'h1' }
+                      ]
+                    }
+                  }
+                }) }}
+          </div>
+            <!-- <h1 class="heading-m18-mx22-lb pt-tp-50 maia-form-container pd-bt-10"><strong>MY PERSONAL DETAILS</strong></h1> -->
+            <div class="maia-form-body mrg-bt-40-md pd-0">
+                <div class="maia-form-container">
+                    <p class="error text-center" id="profile-error-msg"></p>
+                    <div class="space-input">
+                        <div class="profile-upload-body">
+                            <a class="profile-link" href="#">
+                                <div class="profile-circle">
+                                    <img class="img-profile-circle" id="profile-picture" src="{{ data.about_me.photo_url }}">
+                                    <div class="profile-circle-small {{'d-none' if data.about_me.photo_url}}"><i class="fas fa-plus"></i></div>
+                                    <input type="file" name="file" id="profile-img">
+                                    <!-- <img src="" id="profile-img-tag" width="200px" width="height" /> -->
+
+                                </div>
+                            </a><button id="profile-upload-button" class="photo-upload-div">UPLOAD YOUR PHOTO</button></div>
+
+                            <label class="profile-roll-head top-line"><strong>I use MAIA as a/an:</strong><br></label>
+                        <div class="profile-roll-div">
+                            <div class="profile-roll-body-div">
+                                <a class="profile-roll-link" href="#">
+                                    <div class="profile-roll-info">
+                                        <div>
+                                            <div class="profile-roll-circle"><i class="fa fa-circle profile-roll-circle-icon"></i></div>
+                                        </div><label>Individual</label></div>
+                                </a>
+                            </div>
+                            <div class="profile-roll-body-div">
+                                <a class="profile-roll-link" href="#">
+                                    <div class="profile-roll-info">
+                                        <div>
+                                            <div class="profile-roll-circle"><i class="fa fa-heart profile-roll-circle-icon"></i></div>
+                                        </div><label>Carer</label></div>
+                                </a>
+                            </div>
+                            <div class="profile-roll-body-div">
+                                <a class="profile-roll-link" href="#">
+                                    <div class="profile-roll-info">
+                                        <div>
+                                            <div class="profile-roll-circle"><i class="fa fa-caret-down profile-roll-circle-icon"></i></div>
+                                        </div><label>Administration staff</label></div>
+                                </a>
+                            </div>
+                            <div class="profile-roll-body-div">
+                                <a class="profile-roll-link" href="#">
+                                    <div class="profile-roll-info">
+                                        <div>
+                                            <div class="profile-roll-circle"><i class="fa fa-star profile-roll-circle-icon"></i></div>
+                                        </div><label>Superuser</label></div>
+                                </a>
+                            </div>
+                            <div class="profile-roll-body-div">
+                                <a class="profile-roll-link" href="#">
+                                    <div class="profile-roll-info">
+                                        <div>
+                                            <div class="profile-roll-circle"><i class="fa fa-plus profile-roll-circle-icon"></i></div>
+                                        </div><label>Clinician</label></div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-container min-md-pt-35">
+                        <div class="space-input"><label class="label-head">
+                            <strong>My full name</strong><br></label>
+                            <input type="text" class="sm-font-14"
+                                value="{{ data.about_me.first_name }} {{ data.about_me.last_name }}"
+                                placeholder="Enter a first name and a last name"
+                                id="pf_fullname">
+                        </div>
+                        <div class="space-input"><label class="label-head">
+                            <strong>My nickname</strong><br></label>
+                            <input type="text" class="sm-font-14"
+                                value="{{ data.about_me.nick_name }}"
+                                placeholder="Enter a nickname"
+                                id="pf_nick_name">
+                        </div>
+                        <div class="space-input">
+                            <label class="label-head"><strong>My strengths</strong><br></label>
+                            <div id="pf_strength_container">
+                            <input type="number" id="pf_strength_count"
+                                class="d-none" value="{{ data.about_me.strengths | length }}">
+                            {% for s in data.about_me.strengths %}
+                                <div id="pf_strength__{{ loop.index }}">
+                                    <div class="flex-sb">
+                                        <label class="label-head"></label>
+                                        {% if loop.first != true %}
+                                        <a class="delete-link"
+                                            onclick="removeStrength('{{ loop.index }}')"
+                                            href="javascript:void(0);">Delete</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex-sb-c">
+                                        <input type="text" class="sm-font-14" placeholder="Add some strengths" value="{{ s }}">
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+
+                            <div class="flex-sb-c">
+                                <input type="text" class="sm-font-14" id="pf_strength_val" placeholder="Add some strengths">
+                                <div class="add-link-div">
+                                    <a class="add-icon" href="javascript:void(0);" onclick="addAnotherStrength()">
+                                        <div class="add-circle"><i class="fas fa-plus add-circle-icon"></i></div>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="space-input"><label class="label-head"><strong>My weaknesses</strong><br></label>
+
+                            <div id="pf_weakness_container">
+                                <input type="number" id="pf_weakness_count"
+                                    class="d-none" value="{{ data.about_me.weaknesses | length }}">
+                                {% for w in data.about_me.weaknesses %}
+                                <div id="pf_weakness__{{ loop.index }}">
+                                    <div class="flex-sb">
+                                        <label class="label-head"></label>
+                                        {% if loop.first != true %}
+                                        <a class="delete-link"
+                                            onclick="removeWeakness('{{ loop.index }}')"
+                                            href="javascript:void(0);">Delete</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex-sb-c">
+                                        <input type="text" class="sm-font-14" placeholder="Add some weaknesses" value="{{ w }}">
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="flex-sb-c">
+                                <input type="text" class="sm-font-14" id="pf_weakness_val" placeholder="Add some weaknesses">
+                                <div class="add-link-div">
+                                    <a class="add-icon" href="javascript:void(0);" onclick="addAnotherWeakness()">
+                                        <div class="add-circle"><i class="fas fa-plus add-circle-icon"></i></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-input"><label class="label-head"><strong>My health goals</strong><br></label>
+                            <div id="pf_healthgoals_container">
+                                <input type="number" id="pf_health_goals_count"
+                                    class="d-none" value="{{ data.about_me.health_goals | length }}">
+                                {% for hg in data.about_me.health_goals %}
+                                <div id="pf_healthgoal__{{ loop.index }}">
+                                    <div class="flex-sb">
+                                        <label class="label-head"></label>
+                                        {% if loop.first != true %}
+                                        <a class="delete-link"
+                                            onclick="removeHealthGoal('{{ loop.index }}')"
+                                            href="javascript:void(0);">Delete</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex-sb-c">
+                                        <input type="text" class="sm-font-14" placeholder="Enter some health goals" value="{{ hg }}">
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="flex-sb-c">
+                                <input type="text" class="sm-font-14" id="pf_health_goal_val" placeholder="Enter some health goals">
+                                <div class="add-link-div">
+                                    <a class="add-icon" href="javascript:void(0);" onclick="addAnotherHealthGoal()">
+                                        <div class="add-circle"><i class="fas fa-plus add-circle-icon"></i></div>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="space-input">
+                            <label class="label-head"><strong>My ethnicity</strong><br></label>
+                            <div class="maia-select mrg-bt-10 mrg-tp-0 w-100">
+                                <select required name="slct" id="pf_ethnicity">
+                                    <option value='' disabled>Please select your ethnicity</option>
+                                    {%for evalue, etext in data.ethnicity_values%}
+                                    <option value="{{ evalue }}"
+                                        {{ 'selected' if evalue == data.about_me.ethnicity }}
+                                        >{{ etext }}</option>
+                                    {%endfor%}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="space-input">
+                            <label class="label-head"><strong>My marital status</strong><br></label>
+                            <div class="maia-select mrg-bt-10 mrg-tp-0 w-100">
+                                <select required name="slct" id="pf_marital_status">
+                                    <option value='' disabled>Please select your marital status</option>
+                                    {%for mvalue, mtext in data.marital_values%}
+                                    <option value="{{ mvalue }}"
+                                    {{ 'selected' if mvalue == data.about_me.marital_status }}
+                                    >{{ mtext }}</option>
+                                    {%endfor%}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="space-input">
+                            <label class="label-head"><strong>My gender</strong><br></label>
+                            <div class="maia-select mrg-bt-10 mrg-tp-0 w-100">
+                                <select required name="slct" id="pf_gender">
+                                    <option value='' disabled>Please select your gender</option>
+                                    {%for gvalue, gtext in data.gender_values%}
+                                    <option value="{{ gvalue }}"
+                                        {{ 'selected' if gvalue == data.about_me.marital_status }}
+                                    >{{ gtext }}</option>
+                                    {%endfor%}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="space-input">
+                            <label class="label-head"><strong>My date of birth</strong><br></label>
+                            <label class="cal-date">
+                                <input type="text" class="sm-font-14" id="pf_dob" placeholder="DD/MM/YYYY" value="{{ data.about_me.dob | date('DD/MM/YYYY') }}">
+                            </label>
+                        </div>
+                        <div class="space-input">
+                            <label class="label-head">
+                                <strong>My address</strong><br>
+                            </label>
+                            <input type="text" class="sm-font-14"
+                            id="pf_address"
+                            placeholder="Start typing to search for your address"
+                            value="{{ data.about_me.address }}">
+                        </div>
+                        <div class="space-input"><label class="label-head"><strong>My email address</strong><br></label>
+                            <div class="flex-sb-c">
+                                <input type="text" class="sm-font-14"
+                                    value="{{ data.about_me.email }}"
+                                    id="pf_email"
+                                    placeholder="Enter your email address">
+                            </div>
+                        </div>
+                        <div class="space-input"><label class="label-head"><strong>My phone number</strong><br></label>
+                            <div class="flex-sb-c">
+                                <input type="text" class="sm-font-14"
+                                    id="pf_phone"
+                                    value="{{ data.about_me.phone_number }}"
+                                    placeholder="Enter your phone number">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-end mrg-tp-30">
+                        <button class="btn btn-primary save-btn mrg-rt-20" type="button" id="profile-save-btn">SAVE</button>
+                        <a href="{{ data.parent_route }}">
+                            <button class="btn btn-primary cancel-btn" type="button">CANCEL</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pop-up-hd-sub-ft" style="display: none;">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading">
+                    <strong>YOUR PERSONAL DETAILS WERE SAVED.</strong><br>
+                </h1>
+                <a href="{{ data.parent_route }}">
+                    <button class="btn btn-primary btn-green" type="button">
+                        <strong>VIEW MY PERSONAL DETAILS</strong>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="popup" style="display: none;">
+            <div class="popup-body">
+                <div class="goal-pop-up-card">
+                    <div class="close-right"><i class="material-icons icon-font">highlight_off</i></div>
+                    <div class="popup-msg"><label class="popup-heading color-w"><strong>ARE YOU SURE?</strong><br></label>
+                        <p class="color-w">Deleting this step will permanently delete all the details That you have added. Are you sure you want to delete?</p>
+                        <div class="flex-c-alg-fdc"><button class="btn btn-primary cancel-btn" type="button" onclick="window.location.href = &#39;#&#39;"><strong>YES, DELETE</strong><br></button><a class="return-link" href="#">NO, RETURN TO GOAL</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="popup" style="display: none;">
+            <div class="popup-body">
+                <div class="goal-pop-up-card">
+                    <div class="close-right"><i class="material-icons icon-font">highlight_off</i></div>
+                    <div class="popup-msg"><label class="popup-heading color-w"><strong>ARE YOU SURE?</strong><br></label>
+                        <p class="color-w">Cancelling this step will permanently delete all the details that you have added. Are you sure you want to cancel?</p>
+                        <div class="flex-c-alg-fdc"><button class="btn btn-primary cancel-btn" type="button" onclick="window.location.href = &#39;#&#39;"><strong>YES, CANCEL STEP</strong></button><a class="return-link" href="#">NO, CONTINUE EDITING STEP</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="maia-loading d-none">
+  <div id="LoadingPages" class="loading-icon">
+  <i class="fa fa-spinner fa-spin fa-5x fa-fw"></i></div>
+  </div>
+{% endblock %}

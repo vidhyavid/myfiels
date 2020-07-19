@@ -1,0 +1,129 @@
+{% extends "layout.html" %}
+{% block main %}
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+        <div id="submenu-height">
+          <ul class="profile-main-nav">
+              <li class="profile-main-active"><a href="/profile/edit"><strong>ABOUT ME</strong><br></a></li>
+              <li><a href="/profile/keyhealthinfo/edit">KEY HEALTH INFO</a></li>
+              <li><a href="#">KEY CONTACTS</a></li>
+          </ul>
+            <ul class="profile-submenu-nav">
+                <li><a href="/profile/edit"><strong>PERSONAL DETAILS</strong><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+                <li><a href="/profile/aboutme/my-background/edit">MY BACKGROUND<i class="material-icons active-uparrow">arrow_drop_up</i></a></li>
+                <li class="profile-submenu-active"><a href="/profile/aboutme/my-needs/edit">MY NEEDS<i class="material-icons active-uparrow">arrow_drop_up</i></a></li>
+            </ul>
+        </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+            <div class="maia-form-container pt-bt-30">
+                <div class="pt-tp-50 pd-bt-10 flex-sb-c">
+                  <div class="heading-m18-mx22-lb">
+                    {{ apos.area(data.page, 'headingNeedview', {
+                          widgets: {
+                            'apostrophe-rich-text': {
+                              toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                              styles: [
+                                { name: 'Heading', element: 'h1' }
+                              ]
+                            }
+                          }
+                        }) }}
+                  </div>
+                    <!-- <h1 class="heading-m18-mx22-lb"><strong>MY NEEDS</strong><br></h1> -->
+                </div>
+                <div class="my-health-card mrg-bt-40-md pd-tp-0">
+                    <div>
+                        <div>
+                            <h5 class="profile-heading mrg-tp-20"><strong>MY IMMEDIATE NEEDS</strong><br></h5>
+                            <div class="flex-div-col">
+                                <p class="profile-card-para">{{ data.needs.best_communication }}</p>
+                            </div>
+                            <h5 class="profile-heading text-tran-none"><strong>{{ data.needs.mobility_needs }}</strong><br></h5>
+                            <div class="flex-alg-c"><button class="btn btn-primary btn-green" type="button"><strong>VIEW MY HEALTH</strong><br></button></div>
+                        </div>
+                        <div class="md-line mrg-tp-bt-30 pt-0"></div>
+                        <div>
+                            <h5 class="profile-heading mrg-tp-20"><strong>IMPORTANT ROUTINES FOR ME</strong><br></h5>
+                            <div class="flex-div-col">
+                                {% for n in data.needs.routines %}
+                                <p class="profile-card-para">{{ n }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="md-line mrg-tp-bt-30 pt-0"></div>
+                        <div class="flex-sb profile-inner-card">
+                            <div class="p-w-50">
+                                <h5 class="profile-heading"><strong>I’M UPSET BY</strong><br></h5>
+                                <div class="flex-div-col">
+                                    {% for u in data.needs.upset_things %}
+                                    <p class="profile-card-info">{{ u }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="p-w-50">
+                                <h5 class="profile-heading"><strong>I’M CALMED BY</strong><br></h5>
+                                <div class="flex-div-col">
+                                    {% for c in data.needs.calm_things %}
+                                    <p class="profile-card-info">{{ c }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-alg-c"><button class="btn btn-primary btn-green" type="button"><strong>VIEW COPING STRATEGIES</strong><br></button></div>
+                        <div class="md-line"></div>
+                        <div class="flex-sb profile-inner-card">
+                            <div class="p-w-50 mrg-rt-10">
+                                <h5 class="profile-heading"><strong>I CAN EASILY</strong><br></h5>
+                                <div class="flex-div-col">
+                                    {% for t in data.needs.things_for_myself %}
+                                    <label class="profile-card-info">{{ t }}</label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="p-w-50">
+                                <h5 class="profile-heading"><strong>I NEED HELP TO</strong><br></h5>
+                                <div class="flex-div-col">
+                                    {% for t in data.needs.things_help_with %}
+                                    <label class="profile-card-info">{{ t }}</label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-alg-c"><button class="btn btn-primary btn-green" type="button"><strong>VIEW COPING STRATEGIES</strong><br></button></div>
+                        <div>
+                            <div class="md-line"></div>
+                            <h5 class="profile-heading"><strong>MY PERSONAL CARE</strong><br></h5>
+                            <div class="flex-div-col"><label class="profile-card-info text-center">{{ data.needs.personal_care }}</label></div>
+                            <div class="flex-alg-c"><button class="btn btn-primary btn-green" type="button"><strong>VIEW MY HEALTH</strong><br></button></div>
+                        </div>
+                        <div>
+                            <div class="md-line"></div>
+                            <h5 class="profile-heading"><strong>MY EATING / DRINKING</strong><br></h5>
+                            <div class="flex-div-col"><label class="profile-card-info text-center">{{ data.needs.eating_drinking }}</label></div>
+                            <div class="flex-alg-c"><button class="btn btn-primary btn-green" type="button"><strong>TRACK MY DIET</strong></button></div>
+                        </div>
+                        <div>
+                            <div class="md-line"></div>
+                            <h5 class="profile-heading"><strong>MY MEDICATION NEEDS</strong><br></h5>
+                            <div class="flex-div-col"><label class="profile-card-info text-center">{{ data.needs.how_medication }}</label></div>
+                            <div class="flex-alg-c"><button class="btn btn-primary btn-green" type="button"><strong>VIEW MY MEDICATIONS</strong></button></div>
+                        </div>
+                        <div>
+                            <div class="md-line"></div>
+                            <h5 class="profile-heading"><strong>OTHER THINGS TO NOTE</strong><br></h5>
+                            <div class="flex-div-col"><label class="profile-card-info text-center">{{ data.needs.things_know_about_me }}</label></div>
+                            <div class="flex-alg-c"><button class="btn btn-primary btn-green" type="button"><strong>VIEW MY DIARY</strong></button></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-sb mrg-tp-20">
+                  <div class="profile-top-scroll">
+                    <div class="scroll-top-div"><i class="material-icons scroll-top-icon" id="scroll-top">keyboard_arrow_up</i></div>
+                  </div>
+                    <a href="{{ data.slug }}/edit">
+                        <button class="btn btn-primary add-btn-org" type="button"><strong>EDIT</strong></button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

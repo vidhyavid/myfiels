@@ -1,0 +1,269 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/aboutme-module/js/common.js"></script>
+<script src="/modules/aboutme-module/js/my_needs_edit.js"></script>
+{% endblock %}
+{% block main %}
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+        <div id="submenu-height">
+          <ul class="profile-main-nav">
+              <li class="profile-main-active"><a href="/profile/edit"><strong>ABOUT ME</strong><br></a></li>
+              <li><a href="/profile/keyhealthinfo/edit">KEY HEALTH INFO</a></li>
+              <li><a href="#">KEY CONTACTS</a></li>
+          </ul>
+            <ul class="profile-submenu-nav">
+                <li><a href="/profile/edit">PERSONAL DETAILS<i class="material-icons active-uparrow">arrow_drop_up</i></a></li>
+                <li><a href="/profile/aboutme/my-background/edit">MY BACKGROUND<i class="material-icons active-uparrow">arrow_drop_up</i></a></li>
+                <li class="profile-submenu-active"><a href="/profile/aboutme/my-needs/edit"><strong>MY NEEDS</strong><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+            </ul>
+        </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+          <div class="heading-m18-mx22-lb pt-tp-50 maia-form-container pd-bt-10">
+            {{ apos.area(data.page, 'headingNeedAdd', {
+                  widgets: {
+                    'apostrophe-rich-text': {
+                      toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                      styles: [
+                        { name: 'Heading', element: 'h1' }
+                      ]
+                    }
+                  }
+                }) }}
+          </div>
+            <!-- <h1 class="heading-m18-mx22-lb pt-tp-50 maia-form-container pd-bt-10"><strong>MY NEEDS</strong><br></h1> -->
+            <div class="maia-form-body mrg-bt-40-md pt-tp-0">
+                <div class="maia-form-container">
+                    <form>
+                        <div class="space-input">
+                            <label class="label-head">
+                                <strong>How best to communicate with me</strong><br>
+                            </label>
+                            <textarea maxlength="250" class="form-control" placeholder="Please select" id="pf_comm">{{ data.needs.best_communication }}</textarea>
+                            <div class="info"></div>
+                        </div>
+                        <div class="space-input">
+                            <label class="label-head"><strong>My mobility needs</strong><br></label>
+                            <textarea maxlength="250" class="form-control" placeholder="Please select" id="pf_mobility">{{ data.needs.mobility_needs }}</textarea>
+                            <div class="info"></div>
+                        </div>
+
+                        <!-- routines - start -->
+                        <div class="space-input"><label class="label-head"><strong>My routines</strong><br></label>
+                            <div id="pf_routines_container">
+                                <input type="number" id="pf_routines_count"
+                                class="d-none" value="{{ data.needs.routines | length }}">
+                                {% for r in data.needs.routines %}
+                                <div id="pf_routines__{{ loop.index }}">
+                                    <div class="flex-sb">
+                                        <label class="label-head"></label>
+                                        {% if loop.first != true %}
+                                        <a class="delete-link"
+                                            onclick="removeItem('{{ loop.index }}', 'routines')"
+                                            href="javascript:void(0);">Delete</a>
+                                            {% endif %}
+                                    </div>
+                                    <div class="flex-sb-c">
+                                        <input type="text" class="sm-font-14" placeholder="Add some values" value="{{ r }}">
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="flex-sb-c">
+                                <input class="form-control sm-font-14" type="text" placeholder="Please select" id="pf_routines">
+                                <div class="add-link-div">
+                                    <a class="add-icon" href="javascript:void(0);" onclick="addAnotherItem('routines')">
+                                        <div class="add-circle"><i class="fas fa-plus add-circle-icon"></i></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- routines - end -->
+
+                        <!-- upset start -->
+                        <div class="space-input"><label class="label-head">Things that upset me<br></label>
+                            <div id="pf_upset_container">
+                                <input type="number" id="pf_upset_count"
+                                class="d-none" value="{{ data.needs.upset_things | length }}">
+                                {% for u in data.needs.upset_things %}
+                                <div id="pf_upset__{{ loop.index }}">
+                                    <div class="flex-sb">
+                                        <label class="label-head"></label>
+                                        {% if loop.first != true %}
+                                        <a class="delete-link"
+                                            onclick="removeItem('{{ loop.index }}', 'upset')"
+                                            href="javascript:void(0);">Delete</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex-sb-c">
+                                        <input type="text" class="sm-font-14" placeholder="Add some values" value="{{ u }}">
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="flex-sb-c">
+                                <input class="form-control sm-font-14" type="text" placeholder="Please select" id="pf_upset">
+                                <div class="add-link-div">
+                                    <a class="add-icon" href="javascript:void(0);" onclick="addAnotherItem('upset')">
+                                        <div class="add-circle"><i class="fas fa-plus add-circle-icon"></i></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- upset end -->
+
+                        <!-- calm start -->
+                        <div class="space-input"><label class="label-head"><strong>Things that calm me / help me sleep</strong><br></label>
+                            <div id="pf_calm_container">
+                                <input type="number" id="pf_calm_count"
+                                class="d-none" value="{{ data.needs.calm_things | length }}">
+                                {% for c in data.needs.calm_things %}
+                                <div id="pf_calm__{{ loop.index }}">
+                                    <div class="flex-sb">
+                                        <label class="label-head"></label>
+                                        {% if loop.first != true %}
+                                        <a class="delete-link"
+                                            onclick="removeItem('{{ loop.index }}', 'calm')"
+                                            href="javascript:void(0);">Delete</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex-sb-c">
+                                        <input type="text" class="sm-font-14" placeholder="Add some values" value="{{ c }}">
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="flex-sb-c"><input class="form-control sm-font-14" type="text" placeholder="Please select" id="pf_calm">
+                                <div class="add-link-div">
+                                    <a class="add-icon" href="javascript:void(0);" onclick="addAnotherItem('calm')">
+                                        <div class="add-circle"><i class="fas fa-plus add-circle-icon"></i></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- calm end -->
+
+
+                        <!-- myself start -->
+                        <div class="space-input"><label class="label-head"><strong>Things I can do for myself</strong><br></label>
+                            <div id="pf_myself_container">
+                                <input type="number" id="pf_myself_count"
+                                class="d-none" value="{{ data.needs.things_for_myself | length }}">
+                                {% for m in data.needs.things_for_myself %}
+                                <div id="pf_myself__{{ loop.index }}">
+                                    <div class="flex-sb">
+                                        <label class="label-head"></label>
+                                        {% if loop.first != true %}
+                                        <a class="delete-link"
+                                            onclick="removeItem('{{ loop.index }}', 'myself')"
+                                            href="javascript:void(0);">Delete</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex-sb-c">
+                                        <input type="text" class="sm-font-14" placeholder="Add some values" value="{{ m }}">
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="flex-sb-c"><input class="form-control sm-font-14" type="text" placeholder="Please select" id="pf_myself">
+                                <div class="add-link-div">
+                                    <a class="add-icon" href="javascript:void(0);" onclick="addAnotherItem('myself')">
+                                        <div class="add-circle"><i class="fas fa-plus add-circle-icon"></i></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- myself end -->
+
+                        <!-- help start -->
+                        <div class="space-input"><label class="label-head"><strong>Things I might need help with</strong><br></label>
+                            <div id="pf_help_container">
+                                <input type="number" id="pf_help_count"
+                                class="d-none" value="{{ data.needs.things_help_with | length }}">
+                                {% for h in data.needs.things_help_with %}
+                                <div id="pf_help__{{ loop.index }}">
+                                    <div class="flex-sb">
+                                        <label class="label-head"></label>
+                                        {% if loop.first != true %}
+                                        <a class="delete-link"
+                                            onclick="removeItem('{{ loop.index }}', 'help')"
+                                            href="javascript:void(0);">Delete</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex-sb-c">
+                                        <input type="text" class="sm-font-14" placeholder="Add some values" value="{{ h }}">
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="flex-sb-c"><input class="form-control sm-font-14" type="text" placeholder="Please select" id="pf_help">
+                                <div class="add-link-div">
+                                    <a class="add-icon" href="javascript:void(0);" onclick="addAnotherItem('help')">
+                                        <div class="add-circle"><i class="fas fa-plus add-circle-icon"></i></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- help end -->
+
+                        <div class="space-input"><label class="label-head"><strong>My personal care</strong><br></label>
+                            <textarea maxlength="250" class="form-control" placeholder="Please select" id="pf_personal_care">{{ data.needs.personal_care }}</textarea>
+                            <div class="info"></div>
+                        </div>
+                        <div class="space-input"><label class="label-head"><strong>My eating and drinking</strong><br></label>
+                            <textarea maxlength="250" class="form-control" placeholder="Please select" id="pf_eating">{{ data.needs.eating_drinking }}</textarea>
+                            <div class="info"></div>
+                        </div>
+                        <div class="space-input"><label class="label-head"><strong>How I take my medication</strong><br></label>
+                            <textarea maxlength="250" class="form-control" placeholder="Please select" id="pf_meds">{{ data.needs.how_medication }}</textarea>
+                            <div class="info"></div>
+                        </div>
+                        <div class="space-input"><label class="label-head"><strong>Things I’d like you to know about me</strong><br></label>
+                            <textarea maxlength="250" class="form-control" placeholder="Please select" id="pf_about_me">{{ data.needs.things_know_about_me }}</textarea>
+                            <div class="info"></div>
+                        </div>
+                    </form>
+                    <div class="flex-end mrg-tp-30">
+                        <button class="btn btn-primary save-btn mrg-rt-20" type="button" id="needs-save-btn">SAVE</button>
+                        <a href="{{ data.parent_route }}">
+                            <button class="btn btn-primary cancel-btn" type="button">CANCEL</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pop-up-hd-sub-ft" style="display: none;">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading"><strong>YOUR NEEDS WERE SAVED.</strong><br></h1>
+                <a href="{{ data.parent_route }}">
+                    <button class="btn btn-primary btn-green" type="button"><strong>VIEW MY NEEDS</strong>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="popup" style="display: none;">
+            <div class="popup-body">
+                <div class="goal-pop-up-card">
+                    <div class="close-right"><i class="material-icons icon-font">highlight_off</i></div>
+                    <div class="popup-msg"><label class="popup-heading color-w"><strong>ARE YOU SURE?</strong><br></label>
+                        <p class="color-w">Deleting this step will permanently delete all the details That you have added. Are you sure you want to delete?</p>
+                        <div class="flex-c-alg-fdc"><button class="btn btn-primary cancel-btn" type="button" onclick="window.location.href = &#39;#&#39;"><strong>YES, DELETE</strong><br></button><a class="return-link" href="#">NO, RETURN TO GOAL</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="popup" style="display: none;">
+            <div class="popup-body">
+                <div class="goal-pop-up-card">
+                    <div class="close-right"><i class="material-icons icon-font">highlight_off</i></div>
+                    <div class="popup-msg"><label class="popup-heading color-w"><strong>ARE YOU SURE?</strong><br></label>
+                        <p class="color-w">Cancelling this step will permanently delete all the details that you have added. Are you sure you want to cancel?</p>
+                        <div class="flex-c-alg-fdc"><button class="btn btn-primary cancel-btn" type="button" onclick="window.location.href = &#39;#&#39;"><strong>YES, CANCEL STEP</strong></button><a class="return-link" href="#">NO, CONTINUE EDITING STEP</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

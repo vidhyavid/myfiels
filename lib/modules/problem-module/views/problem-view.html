@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+
+<script src="/modules/problem-module/js/chart.js"></script>
+{% endblock %}
+{% block main %}
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+      <div id="submenu-height">
+      {% include './_tracker_menu.html' %}
+      </div>
+
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+          <div class="chart-pv-div pd-tp-bt-30">
+            <a class="chart-previous-link" onclick="prevBtnp()">
+              <i class="material-icons">keyboard_arrow_left</i></a>
+              <label class="chart-info-label" id="chartlable">18TH - 24TH MAY 2020</label>
+              <a class="chart-next-link"onclick="nextBtnp()">
+                <i class="material-icons">keyboard_arrow_right</i>
+              </a>
+            </div>
+          <div class="Chart-div">
+                    <canvas id="myChart" width="624" height="412"></canvas>
+                  </div>
+            <div class="maia-form-container">
+                <div class="wrapper center-block pt-tp-bt-40">
+                    <div id="accordion" class="panel-group" role="tablist" aria-multiselectable="true" >
+
+
+                    </div>
+                </div>
+                <div class="flex-end mrg-bt-25"><a href="{{ data.page.slug }}/add"><button class="btn btn-primary add-btn-org" type="button">ADD</button></a></div>
+            </div>
+
+        </div>
+
+        <div id="pop-up-hd-sub-ft" style="display:none;" id="noContent">
+          <div class="flex-c-alg-fdc" id="pop-up-hd-sub-ft">
+            <h1 class="pop-heading">YOUR HAVE NOT ADDED ANY PROBLEM YET</h1>
+            <a href="{{ data.page.slug }}">
+              <button class="btn btn-primary btn-green"
+              type="button"><strong>ADD PROBLEM</strong>
+            </button>
+          </a>
+        </div>
+        </div>
+
+    </div>
+{% endblock %}

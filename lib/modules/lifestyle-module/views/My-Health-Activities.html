@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/lifestyle-module/js/add_edit_activity_hobby_common.js"></script>
+<script src="/modules/lifestyle-module/js/add_activity_hobby.js"></script>
+{% endblock %}
+{% block main %}
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+        <div id="submenu-height">
+            <ul class="profile-submenu-nav">
+                <li><a href="/lifestyle">Health factors<i class="fa fa-caret-up active-uparrow"></i></a></li>
+                <li class="profile-submenu-active"><a href="/my-health/lifestyle/activities"><strong>Hobbies &amp; activities</strong><br><br><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+            </ul>
+        </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+            <div class="heading-m18-mx22-lb pd-tp-bt-30 maia-form-container">
+              <!-- <strong>MY HOBBIES &amp; ACTIVITIES</strong><br> -->
+              {{ apos.area(data.page, 'ActivityTitle', {
+                    widgets: {
+                      'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                          { name: 'Heading', element: 'h1' }
+                        ]
+                      }
+                    }
+                  }) }}
+            </div>
+            <div class="maia-form-body mrg-bt-40-md pd-tp-0">
+                <div class="maia-form-container">
+                    <div id="act_list_container">
+                        <div class="space-input" id="act_container__1">
+                            <label class="label-head">
+                              <!-- <strong>Add a hobby or activity</strong><br> -->
+                              {{ apos.area(data.page, 'myHobbyactivity', {
+                                    widgets: {
+                                      'apostrophe-rich-text': {
+                                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                        styles: [
+                                          { name: 'Paragraph', element: 'p' }
+                                        ]
+                                      }
+                                    }
+                                  }) }}
+                            </label>
+                            <input type="text" class="sm-font-14" placeholder="Add a hobby or activity" id="act_hobby__1">
+                        </div>
+                    </div>
+
+                    <div class="flex-end">
+                      <div class="btn btn-primary add-btn-org p-mrg-0" id="add-another-btn">
+                        {{ apos.singleton(data.page, 'btn_add', 'apostrophe-rich-text', {
+          toolbar: ['Bold', 'Italic', 'Link', 'Unlink' ]
+          }) }}
+                        </div>
+                        <!-- <button class="btn btn-primary add-btn-org" id="add-another-btn" type="button">
+                          ADD
+                        </button> -->
+                    </div>
+                    <div class="flex-end mrg-tp-bt-30">
+                        <button class="btn btn-primary save-btn mrg-rt-20"
+                            id="act-save-btn"
+                            type="button">SAVE</button>
+                        <a href="{{ data.parent_route }}">
+                            <button class="btn btn-primary cancel-btn" type="button">CANCEL</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pop-up-hd-sub-ft" class="d-none">
+        <div id="act-add-success-pop" class="d-none">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading">YOUR ACTIVITIES/HOBBIES HAS BEEN ADDED</h1>
+                <a href="{{ data.parent_route }}">
+                    <button class="btn btn-primary btn-green"
+                        type="button"><strong>VIEW ACTIVITIES/HOBBIES</strong>
+                    </button>
+                </a>
+                <a href="{{ data.slug }}">
+                    <button class="btn btn-primary btn-outline-yellow" type="button">
+                        <strong>ADD ANOTHER</strong><br>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div id="act-add-error-pop" class="d-none">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading">ERROR</h1>
+                <h2 class="pop-heading">Could not add your activities/hobbies</h2>
+                <p id="med-error-message"></p>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

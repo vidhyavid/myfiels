@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block main %}
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+        <div id="submenu-height">
+            <ul class="profile-submenu-nav">
+                <li><a href="/lifestyle">Health factors<i class="fa fa-caret-up active-uparrow"></i></a></li>
+                <li class="profile-submenu-active"><a href="/my-health/lifestyle/activities"><strong>Hobbies &amp; activities</strong><br><br><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+            </ul>
+        </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+            <div class="maia-form-container pt-bt-30">
+                <div class="pt-tp-50 pd-bt-10 flex-sb-c">
+                    <div class="heading-m18-mx22-lb">
+                      <!-- <strong>MY HOBBIES &amp; ACTIVITIES</strong><br> -->
+                      {{ apos.area(data.page, 'ActivityViewTitle', {
+                            widgets: {
+                              'apostrophe-rich-text': {
+                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                styles: [
+                                  { name: 'Heading', element: 'h1' }
+                                ]
+                              }
+                            }
+                          }) }}
+                    </div>
+                    {% if data.data and (data.data | length)%}
+                    <a class="profile-edit-link" href="{{ data.slug }}/edit"><strong>Edit</strong></a>
+                    {% endif %}
+                </div>
+                <div class="my-health-card mrg-bt-40-md pd-tp-0">
+                    <h5 class="card-heading"><strong>hobby or activity</strong><br></h5>
+                    <div class="flex-div-col">
+                        {% for act in data.data %}
+                        <label class="profile-card-tittle">{{ act.name }}</label>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="add-another-div add-another-diagnosis">
+                    <a href="{{ data.slug }}/add"><strong>Add another activity/hobby</strong><br></a>
+                </div>
+                <!-- <div class="profile-add-body">
+                    <div class="space-input pt-0"><label class="label-head"><strong>Add a medication</strong><br></label><input type="text" class="sm-font-14" placeholder="Empty textfield"></div>
+                    <div class="flex-end"><button class="btn btn-primary add-btn-org" type="button">ADD</button></div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+{% block main %}
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+        <div id="submenu-height">
+          <ul class="profile-main-nav">
+              <li class="profile-main-active"><a href="/profile/edit"><strong>ABOUT ME</strong><br></a></li>
+              <li><a href="/profile/keyhealthinfo/edit">KEY HEALTH INFO</a></li>
+              <li><a href="#">KEY CONTACTS</a></li>
+          </ul>
+            <ul class="profile-submenu-nav">
+                <li><a href="/profile/edit"><strong>PERSONAL DETAILS</strong><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+                <li class="profile-submenu-active"><a href="/profile/aboutme/my-background/edit">MY BACKGROUND<i class="material-icons active-uparrow">arrow_drop_up</i></a></li>
+                <li><a href="/profile/aboutme/my-needs/edit">MY NEEDS<i class="material-icons active-uparrow">arrow_drop_up</i></a></li>
+            </ul>
+        </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+            <div class="maia-form-container pt-bt-30">
+                <div class="pt-tp-50 pd-bt-10 flex-sb-c">
+                  <div class="heading-m18-mx22-lb">
+                    {{ apos.area(data.page, 'headingBackview', {
+                          widgets: {
+                            'apostrophe-rich-text': {
+                              toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                              styles: [
+                                { name: 'Heading', element: 'h1' }
+                              ]
+                            }
+                          }
+                        }) }}
+                  </div>
+                    <!-- <h1 class="heading-m18-mx22-lb"><strong>MY BACKGROUND</strong><br></h1> -->
+                </div>
+                <div class="my-health-card mrg-bt-40-md pd-tp-0">
+                    <div>
+                        <div>
+                            <h5 class="profile-heading mrg-tp-20"><strong>MY PERSONAL HISTORY</strong><br></h5>
+                            <div class="flex-div-col">
+                                <p class="profile-card-para">{{ data.bg_data.personal_history }}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="md-line mrg-tp-bt-30 pt-0"></div>
+                            <h5 class="profile-heading mrg-tp-20"><strong>MY FAMILY AND FRIENDS</strong><br></h5>
+                            <div class="flex-div-col">
+                                <p class="profile-card-para">{{ data.bg_data.family_and_friends }}</p>
+                            </div>
+                            <div class="flex-alg-c"><button class="btn btn-primary btn-green" type="button"><strong>VIEW MY KEY CONTACTS</strong><br></button></div>
+                        </div>
+                        <div>
+                            <div class="md-line mrg-tp-bt-30 pt-0"></div>
+                            <h5 class="profile-heading mrg-tp-20"><strong>HISTORY &gt; LIFESTYLE</strong><br></h5>
+                            <div class="flex-div-col">
+                                <p class="profile-card-para">{{ data.bg_data.history_affects_lifestyle }}</p>
+                            </div>
+                            <div class="flex-alg-c"><button class="btn btn-primary btn-green" type="button"><strong>VIEW MY LIFESTYLE FACTORS</strong></button></div>
+                        </div>
+                        <div class="md-line mrg-tp-bt-30 pt-0"></div>
+                        <div class="flex-sb profile-inner-card">
+                            <div class="p-w-50">
+                                <h5 class="profile-heading"><strong>MY VALUES</strong><br></h5>
+                                <div class="flex-div-col">
+                                    {% for v in data.bg_data.values %}
+                                    <label class="profile-card-info">{{ v }}</label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="p-w-50">
+                                <h5 class="profile-heading"><strong>MY BELIEFS</strong><br></h5>
+                                <div class="flex-div-col">
+                                    {% for b in data.bg_data.beliefs %}
+                                    <label class="profile-card-info">{{ b }}</label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-alg-c"><button class="btn btn-primary btn-green" type="button"><strong>VIEW MY RELIGION</strong><br></button></div>
+                        <div class="md-line"></div>
+                        <div>
+                            <h5 class="profile-heading"><strong>MY ACHIEVEMENTS / INTERESTS</strong><br></h5>
+                            <div class="flex-div-col">
+                                {% for ai in data.bg_data.achievements_interests %}
+                                <label class="profile-card-info">{{ ai }}</label>
+                                {% endfor %}
+
+                            </div>
+                            <div class="flex-alg-c"><button class="btn btn-primary btn-green" type="button"><strong>VIEW MY HEALTH ACHIEVEMENTS</strong></button></div>
+                            <div class="md-line"></div>
+                        </div>
+                        <div>
+                            <h5 class="profile-heading"><strong>MY FAVOURITE PLACES</strong><br></h5>
+                            <div class="flex-div-col">
+                                {% for pl in data.bg_data.places_to_live_visit %}
+                                <label class="profile-card-info">{{ pl }}</label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-sb mrg-tp-20">
+                  <div class="profile-top-scroll">
+                    <div class="scroll-top-div"><i class="material-icons scroll-top-icon" id="scroll-top">keyboard_arrow_up</i></div>
+                  </div>
+                    <a href="{{ data.slug }}/edit">
+                        <button class="btn btn-primary add-btn-org" type="button"><strong>EDIT</strong></button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

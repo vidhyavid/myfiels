@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/auth-module/js/auth.js"></script>
+{% endblock %}
+{% block main %}
+<div id="maia-main-body" class="maia-inner-body">
+    <div id="maia-body-inner" class="maia-container pt-bt-40-md">
+      </div></div>
+{% if data.data.status == "success" %}
+
+<div class="popup">
+    <div class="popup-body">
+        <div class="auth-popup-card">
+            <div class="close-right"><i class="material-icons icon-font">highlight_off</i></div>
+            <div class="auth-popup-msg"><label class="popup-heading">Your account has been verified</label>
+                <div class="flex-c-alg-fdc"><a href="/users/login"><button class="btn btn-primary btn-black-outline btn-min-md-w-325" type="button"><strong>Login</strong></button></a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%else%}
+<div class="popup">
+    <div class="popup-body">
+        <div class="auth-popup-card">
+            <div class="close-right"><i class="material-icons icon-font">highlight_off</i></div>
+            <div class="auth-popup-msg"><label class="popup-heading">Account not found or might already be verified.</label>
+        </div>
+    </div>
+</div>
+</div>
+{% endif %}
+{% endblock %}

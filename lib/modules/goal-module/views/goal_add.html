@@ -1,0 +1,316 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/goal-module/js/goal_add_edit_common.js"></script>
+<script src="/modules/goal-module/js/goal_add.js"></script>
+{% endblock %}
+{% block main %}
+<div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+    <div id="submenu-height">
+        {% include './__goal_menu.html' %}
+    </div>
+    <div id="maia-body-inner" class="maia-container d-table-col">
+        <!-- <h1 class="pt-tp-bt-40 flex-c-alg-fdc">ADD NEW GOAL</h1> -->
+        <div class="heading-m18-mx22-lb pd-tp-bt-30 maia-form-container">
+          <!--ADD NEW GOAL-->
+          {{ apos.area(data.page, 'headingGoalAdd', {
+                widgets: {
+                  'apostrophe-rich-text': {
+                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                    styles: [
+                      { name: 'Heading', element: 'h1' }
+                    ]
+                  }
+                }
+              }) }}
+        </div>
+        <div class="maia-form-body">
+            <div class="mb-4 error_show d-none" id="error-msgs"></div>
+            <div class="maia-form-container">
+                <div class="space-input">
+                    <label class="label-head">Name of my goal</label>
+                    <input type="text" class="sm-font-14"
+                        id="goal-name"
+                        placeholder="Enter a name for goal">
+                </div>
+                <div class="space-area">
+                    <label class="label-head"><strong>Description of my goal</strong></label>
+                    <textarea class="sm-font-14"
+                        id="goal-description"
+                        placeholder="Enter a description for the goal"></textarea>
+                </div>
+                <div class="flex-sb">
+                    <div class="space-input mrg-rt-20">
+                        <label class="label-head dateTime"><strong>Goal start date</strong></label>
+                        <label class="calenderdiv">
+                           <input type="text" class="sm-font-14 datepicker"
+                            id="goal-from-date"
+                            placeholder="DD/MM/YYYY" autocomplete="off">
+                            <span class="material-icons calender">calendar_today</span>
+                          </label>
+                    </div>
+                    <div class="space-input">
+                        <label class="label-head dateTime"><strong>Goal end date</strong></label>
+                        <label class="calenderdiv">
+                        <input type="text" class="sm-font-14 datepicker"
+                            id="goal-to-date"
+                            placeholder="DD/MM/YYYY" autocomplete="off">
+                            <span class="material-icons calender">calendar_today</span>
+                          </label>
+                    </div>
+                </div>
+
+                <div id="all-steps-container">
+
+                    <div id="step_container__1" class="top-line">
+                        <div class="space-input">
+                            <label class="label-head"><strong>What steps will I take to complete my goal?</strong></label>
+                            <div class="flex-end"><a class="delete-link" href="javascript:void(0);">Delete</a></div>
+                            <div class="flex-sb-c">
+                                <div class="step-count-box mb-2">
+                                    1
+                                </div>
+                                <input type="text" class="sm-font-14"
+                                    placeholder="Go for a 5k run" id="step_name__1">
+                                <!-- <a class="bin-icon" href="javascript:void(0);"><i class="material-icons">delete</i></a> -->
+                                <!-- <a class="bin-icon" href="javascript:void(0);"><i class="fas fa-trash-alt"></i></a> -->
+                            </div>
+                        </div>
+
+                        <div class="space-input">
+                            <label class="label-head"><strong>How often will I take this step?</strong><br></label>
+                            <div class="flex-div">
+                                <div class="maia-day-group sm-select mrg-rt-15">
+                                    <input type="radio" class="how_often_radios" id="once_a_day__1" name="how_often__1" value="once_a_day" />
+                                    <label class="sm-font-14" for="once_a_day__1">ONCE A DAY<br /></label>
+                                </div>
+                                <div class="maia-day-group sm-select ">
+                                    <input type="radio" class="how_often_radios other__1_cls" id="other__1" name="how_often__1" value="other" />
+                                    <label class="sm-font-14" for="other__1">OTHER<br /></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- once a day options -->
+                        <div id="once_a_day-options-container__1" class="d-none">
+                            <div class="space-input">
+                                <label class="label-head"><strong>What time will I take this step?</strong></label>
+                                <div class="step-time">
+                                  <label class="time-picker clockicondiv" name="timepicker"> <input autocomplete="off" type="text" class="sm-font-14 timepickers" placeholder="Select a time" id="once_a_day-time__1" name="timepicker">
+                                    <span class="material-icons clockicon">schedule</span></label>
+                                </div>
+                                <!-- <div class="step-time"><label class="time-picker clockicondiv" name="timepicker"><input  autocomplete="off" id="timepicker" name="timepicker" type="text" class="sm-font-14" placeholder="Select a time">  <span class="material-icons clockicon">
+                    schedule
+                    </span></label></div> -->
+                            </div>
+
+                            <div class="space-input"><label class="label-head"><strong>Do I want to be reminded?</strong><br></label>
+                                <div class="flex-div">
+                                    <div class="maia-day-group sm-select mrg-rt-20">
+                                        <input type="radio" id="once_a_day__do-remind__yes__1" class="do_remind_radios"
+                                            name="once_a_day-do-remind__1" value="yes" />
+                                        <label class="sm-font-14"
+                                            for="once_a_day__do-remind__yes__1">YES<br />
+                                        </label>
+                                    </div>
+                                    <div class="maia-day-group sm-select">
+                                        <input type="radio" id="once_a_day__do-remind__no__1" name="once_a_day-do-remind__1" class="do_remind_radios"
+                                            value="no" />
+                                        <label class="sm-font-14"
+                                            for="once_a_day__do-remind__no__1">NO<br />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-input d-none" id="once_a_day__reminder-container__1">
+                                <label class="label-head"><strong>Set reminder</strong><br></label>
+                                <div class="flex-div">
+                                    <div class="maia-select">
+                                        <select required id="once_a_day__reminder-value__1">
+                                            <option value="15" selected>15 minutes before goal starts</option>
+                                            <option value="30">30 minutes before goal starts</option>
+                                            <option value="45">45 minutes before goal starts</option>
+                                            <option value="60">1 hour before goal starts</option>
+                                            <option value="75">1 hour 15 minutes before goal starts</option>
+                                            <option value="90">1 hour 30 minutes before goal starts</option>
+                                            <option value="120">2 hours before goal starts</option>
+                                            <option value="150">2 hours 30 minutes before goal starts</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- other btn options -->
+                        <div id="other-options-container__1" class="d-none">
+
+                            <div class="space-input">
+                                <label class="label-head"><strong>Which days will I take this step?</strong><br></label>
+                                <div class="row">
+                                    <div class="col-5 col-sm-4 col-md-3 col-lg-3 mrg-bt-15">
+                                        <div class="maia-day-group">
+                                            <input type="checkbox" id="days-checkbox__mon__1" value="mon">
+                                            <label class="sm-font-14" for="days-checkbox__mon__1">
+                                                <strong>MONDAY</strong><br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-5 col-sm-4 col-md-3 col-lg-3 mrg-bt-15">
+                                        <div class="maia-day-group">
+                                            <input type="checkbox" id="days-checkbox__tues__1" value="tues">
+                                            <label class="sm-font-14" for="days-checkbox__tues__1">
+                                                <strong>TUESDAY</strong><br><br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-5 col-sm-4 col-md-6 col-lg-6 mrg-bt-15">
+                                        <div class="maia-day-group">
+                                            <input type="checkbox" id="days-checkbox__wed__1" value="wed">
+                                            <label class="sm-font-14" for="days-checkbox__wed__1">
+                                                <strong>WEDNESDAY</strong><br><br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-5 col-sm-4 col-md-3 col-lg-3 mrg-bt-15">
+                                        <div class="maia-day-group">
+                                            <input type="checkbox" id="days-checkbox__thur__1" value="thur">
+                                            <label class="sm-font-14" for="days-checkbox__thur__1">
+                                                <strong>THURSDAY</strong><br><br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-5 col-sm-8 col-md-9 col-lg-9 mrg-bt-15">
+                                        <div class="maia-day-group">
+                                            <input type="checkbox" id="days-checkbox__fri__1" value="fri">
+                                            <label class="sm-font-14" for="days-checkbox__fri__1">
+                                                <strong>FRIDAY</strong><br><br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-5 col-sm-4 col-md-3 col-lg-3 mrg-bt-15">
+                                        <div class="maia-day-group">
+                                            <input type="checkbox" id="days-checkbox__sat__1" value="sat">
+                                            <label class="sm-font-14" for="days-checkbox__sat__1">
+                                                <strong>SATURDAY</strong><br><br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-5 col-sm-8 col-md-9 col-lg-9 mrg-bt-15">
+                                        <div class="maia-day-group">
+                                            <input type="checkbox" id="days-checkbox__sun__1" value="sun">
+                                            <label class="sm-font-14" for="days-checkbox__sun__1">
+                                                <strong>SUNDAY</strong><br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div></div>
+                            </div>
+
+                            <div class="space-input" id="other__time-container__1">
+                                <label class="label-head"><strong>What time will I take this step?</strong></label>
+                                <input type="number" class="d-none" value="1" id="other__time-box-count__1">
+                                  <label class="calenderdiv time">
+                                <div id="other__time-box__1__1">
+                                    <input type="text" class="sm-font-14 timepickers" placeholder="Select a time" id="other__time__1__1" autocomplete="off">
+                                    <span class="material-icons time-calender">query_builder</span>
+                                </div>
+                                </label>
+                            </div>
+                            <div class="add-another-div"><a class="add-another-time" id="add_time__1" href="javascript:void(0);">Add another time</a></div>
+
+                            <div class="space-input top-line">
+                                <label class="label-head"><strong>How long will I do this for?</strong><br></label>
+                                <div class="flex-div">
+                                    <div class="space-input w--inherit mrg-rt-20">
+                                        <input type="number" class="sm-font-14" placeholder="3" id="other__how_long_value__1__1">
+                                    </div>
+                                    <div class="maia-select">
+                                        <select id="other__how_long_type__1__1">
+                                            <option value="days" selected>Days</option>
+                                            <option value="weeks">Weeks</option>
+                                            <option value="months">Months</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-input top-line"><label class="label-head"><strong>Do I want to be reminded?</strong><br></label>
+                                <div class="flex-div">
+                                    <div class="maia-day-group sm-select mrg-rt-20">
+                                        <input type="radio" id="other__do-remind__yes__1" class="do_remind_radios"
+                                            name="other-do-remind__1" value="yes" />
+                                        <label class="sm-font-14"
+                                            for="other__do-remind__yes__1">YES<br />
+                                        </label>
+                                    </div>
+                                    <div class="maia-day-group sm-select">
+                                        <input type="radio" id="other__do-remind__no__1" name="other-do-remind__1" class="do_remind_radios"
+                                            value="no" />
+                                        <label class="sm-font-14"
+                                            for="other__do-remind__no__1">NO<br />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-input d-none" id="other__reminder-container__1">
+                                <label class="label-head"><strong>Set reminder</strong><br></label>
+                                <div class="flex-div">
+                                    <div class="maia-select mrg-rt-20">
+                                        <select required id="other__reminder-value__1">
+                                            <option value="15" selected>15 minutes before goal starts</option>
+                                            <option value="30">30 minutes before goal starts</option>
+                                            <option value="45">45 minutes before goal starts</option>
+                                            <option value="60">1 hour before goal starts</option>
+                                            <option value="75">1 hour 15 minutes before goal starts</option>
+                                            <option value="90">1 hour 30 minutes before goal starts</option>
+                                            <option value="120">2 hours before goal starts</option>
+                                            <option value="150">2 hours 30 minutes before goal starts</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <div class="top-line another-step-a-container"><a class="add-another-time" id="add-another-goal-step" href="javascript:void(0);"><strong>Add another step</strong></a></div>
+
+                <div class="flex-end mrg-tp-bt-20">
+                    <button class="btn btn-primary save-btn mrg-rt-20 success-msg" type="button" onclick="addNewGoal()">SAVE</button>
+                    <button onclick="location.href='/{{ data.module_root }}/goal'"  class="btn btn-primary cancel-btn" type="button">CANCEL</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="pop-up-hd-sub-ft" class="d-none">
+    <div id="goal-add-success-pop" class="d-none">
+                <div class="popup-msg">
+            <h1 class="pop-heading">YOUR GOAL HAS BEEN ADDED</h1>
+            <a href="/{{ data.module_root }}/goal">
+                <button class="btn btn-primary btn-green"
+                    type="button"><strong>VIEW GOALS</strong>
+                </button>
+            </a>
+            <a href="/{{ data.module_root }}/goal/add">
+                <button class="btn btn-primary btn-outline-yellow" type="button">
+                    <strong>ADD ANOTHER</strong><br>
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <div id="goal-add-error-pop" class="d-none">
+            <div class="flex-c-alg-fdc">
+            <h1 class="pop-heading">ERROR</h1>
+            <h2 class="pop-heading">Could not add your goal</h2>
+            <p id="goal-error-message"></p>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

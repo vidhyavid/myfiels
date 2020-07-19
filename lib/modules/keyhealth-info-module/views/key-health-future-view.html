@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block main %}
+ <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+   <div id="submenu-height">
+      <ul class="profile-main-nav">
+         <li><a href="/profile/edit">ABOUT ME</a></li>
+         <li class="profile-main-active"><a href="/profile/keyhealthinfo/edit"><strong>KEY HEALTH INFO</strong></a></li>
+         <li><a href="#">KEY CONTACTS</a></li>
+      </ul>
+      <ul class="profile-submenu-nav">
+         <li><a href="/profile/keyhealthinfo/edit">My Health status<i class="fa fa-caret-up active-uparrow"></i></a></li>
+         <li class="profile-submenu-active"><a href="/profile/keyhealthinfo/future-care/edit"><strong>Future care</strong><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+      </ul>
+   </div>
+    <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+       <div class="maia-form-container pt-bt-30">
+          <div class="pt-tp-50 pd-bt-10 flex-sb-c">
+            <div class="heading-m18-mx22-lb">
+              {{ apos.area(data.page, 'headingFutureView', {
+                    widgets: {
+                      'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                          { name: 'Heading', element: 'h1' }
+                        ]
+                      }
+                    }
+                  }) }}
+            </div>
+             <!-- <h1 class="heading-m18-mx22-lb"><strong>FUTURE CARE</strong><br></h1> -->
+             <a class="profile-edit-link" href="{{data.parent_route}}/future-care/edit"><strong>Edit</strong></a>
+          </div>
+          <div class="my-health-card mrg-bt-40-md pd-tp-0">
+             <div>
+                <h5 class="card-heading"><strong>
+                   {{ 'I AM A REGISTERED ORGAN DONOR' if data.data.organ_donor == true else 'I AM NOT REGISTERED ORGAN DONOR' }}
+                  </strong><br></h5>
+                <div class="add-another-div"><label class="add-another-diagnosis pt-0"><strong>Amend organ donation status</strong></label></div>
+             </div>
+             <div>
+                <h5 class="card-heading"><strong>
+                  {{ 'I DO HAVE AN ADVANCED DECISION' if data.data.advance_decision == true else 'I DO NOT HAVE AN ADVANCED DECISION' }}
+                  </strong><br></h5>
+                <div class="add-another-div"><label class="add-another-diagnosis pt-0"><strong>Find out more about advanced decisions</strong><br></label></div>
+             </div>
+             <div>
+                <h5 class="card-heading"><strong>
+                   {{ 'I DO HAVE A POWER OF ATTORNEY' if data.data.power_attorney == true else 'I DO NOT HAVE A POWER OF ATTORNEY' }}
+                  </strong><br></h5>
+                <div class="add-another-div"><label class="add-another-diagnosis pt-0"><strong>Find out more about power of attorney</strong><br></label></div>
+             </div>
+             <div>
+                <h5 class="card-heading"><strong>
+                   {{ 'I DO HAVE A WILL' if data.data.will == true else 'I DO NOT HAVE A WILL' }}
+                  </strong><br></h5>
+                <div><button class="btn btn-primary add-btn-org min-w-150" type="button"><strong>VIEW WILL</strong></button></div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <div id="pop-up-hd-sub-ft" style="display: none;">
+       <div class="popup-body">
+          <h1 class="pop-heading"><strong>YOUR HEALTH STATUS WAS SAVED!</strong></h1>
+          <button class="btn btn-primary btn-green" type="button"><strong>VIEW health status</strong><br></button>
+       </div>
+    </div>
+ </div>
+ {% endblock %}

@@ -1,0 +1,170 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/current-health-module/js/diagnosis.js"></script>
+{% endblock %}
+{% block main %}
+<div id="maia-main-body" class="maia-inner-body pt-bt-30" style="position: relative;">
+   <div id="submenu-height">
+      <ul class="profile-submenu-nav">
+         <li class="profile-submenu-active"><a href="/my-health"><strong>Diagnoses</strong><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+         <li><a href="/my-health/medication">Medication<i class="fa fa-caret-up active-uparrow"></i></a></li>
+         <li><a href="#">Social prescriptions<i class="fa fa-caret-up active-uparrow"></i></a></li>
+      </ul>
+   </div>
+   <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+      <div class="heading-m18-mx22-lb pd-tp-bt-30 maia-form-container">
+        <!-- DIAGNOSES -->
+        {{ apos.area(data.page, 'HeadingDiagnoses', {
+              widgets: {
+                'apostrophe-rich-text': {
+                  toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                  styles: [
+                    { name: 'Heading', element: 'h1' }
+                  ]
+                }
+              }
+            }) }}
+      </div>
+      <div class="maia-form-body mrg-bt-40-md pd-tp-0">
+         <div class="maia-form-container">
+            {% if data.type == 'primary' %}
+            <div class="space-input">
+               {% for item in data.primaryDiagnoses %}
+               <div class="flex-sb"><label class="label-head"><strong>PRIMARY DIAGNOSES</strong><br></label>
+                  <a class="delete-link deleteDiagnosis" id="{{ item.id }}" href="javascript:void(0);">Delete</a>
+               </div>
+               <input type="text" class="sm-font-14 diagnosisInput" data-type="primary" diagnosisId="{{item.id}}" value="{{item.diagnosis}}" placeholder="Add a primary diagnosis">
+               {% endfor %}
+            </div>
+            {% endif %}
+            {% if data.type == 'secondary' %}
+            <div class="space-input">
+               {% for item in data.secondaryDiagnoses %}
+               <div class="flex-sb"><label class="label-head"><strong>SECONDARY DIAGNOSES</strong><br></label>
+                  <a class="delete-link deleteDiagnosis" id="{{ item.id }}" href="javascript:void(0);">Delete</a>
+               </div>
+               <input type="text" class="sm-font-14 diagnosisInput" data-type="secondary" diagnosisId="{{item.id}}" value="{{item.diagnosis}}" placeholder="Add a seconary diagnosis">
+               {% endfor %}
+            </div>
+            {% endif %}
+            {% if data.data %}
+            <div class="flex-end mrg-tp-bt-30"><button class="btn btn-primary save-btn mrg-rt-20" id="edit-diag-save-btn" type="button">SAVE</button>
+               <a href="/my-health/current-health"><button class="btn btn-primary cancel-btn" type="button">CANCEL</button></a>
+            </div>
+            {% endif %}
+            <!-- <div id="diag-del-success-pop" class="popup d-none">
+               <div class="flex-c-alg-fdc">
+                  <h1 class="pop-heading">YOUR DIAGNOSIS HAS BEEN REMOVED</h1>
+                  <a href="{{ data.url }}">
+                  <button class="btn btn-primary btn-green"
+                     type="button"><strong>CONTINUE</strong>
+                  </button>
+                  </a>
+               </div>
+            </div> -->
+            <!-- <div id="diag-del-error-pop" class="popup d-none">
+               <div class="flex-c-alg-fdc">
+                  <h1 class="pop-heading">ERROR</h1>
+                  <h2 class="pop-heading">Could not remove your Diagnosis</h2>
+                  <p id="med-error-message"></p>
+               </div>
+            </div> -->
+            <!-- <div id="diag-update-success-pop" class="popup d-none">
+               <div class="flex-c-alg-fdc">
+                  <h1 class="pop-heading">YOUR Diagnoses HAS BEEN UPDATED</h1>
+                  <a href="{{ data.url }}">
+                  <button class="btn btn-primary btn-green"
+                     type="button"><strong>CONTINUE</strong>
+                  </button>
+                  </a>
+                  <a href="{{ data.parent_route }}">
+                  <button class="btn btn-primary btn-green"
+                     type="button"><strong>VIEW Diagnoses</strong>
+                  </button>
+                  </a>
+               </div>
+            </div> -->
+            <!-- <div id="diag-update-success-pop" class="d-none">
+               <div class="flex-c-alg-fdc">
+                  <h1 class="pop-heading">YOUR Diagnoses HAS BEEN UPDATED</h1>
+                  <a href="{{ data.url }}">
+                  <button class="btn btn-primary btn-green"
+                     type="button"><strong>CONTINUE</strong>
+                  </button>
+                  </a>
+                  <a href="{{ data.parent_route }}">
+                  <button class="btn btn-primary btn-green"
+                     type="button"><strong>VIEW Diagnoses</strong>
+                  </button>
+                  </a>
+               </div>
+            </div> -->
+            <!-- <div id="diag-update-error-pop" class="d-none">
+               <div class="flex-c-alg-fdc">
+                  <h1 class="pop-heading">ERROR</h1>
+                  <h2 class="pop-heading">Could not update your diagnoses</h2>
+                  <p id="med-error-message"></p>
+               </div>
+            </div> -->
+         </div>
+      </div>
+   </div>
+   <div id="pop-up-hd-sub-ft" class="d-none">
+    <div id="diag-del-success-pop" class="d-none">
+        <div class="flex-c-alg-fdc">
+           <h1 class="pop-heading">YOUR DIAGNOSIS HAS BEEN REMOVED</h1>
+           <a href="{{ data.url if data.primaryDiagnoses.length>1 else '/my-health'}}">
+           <button class="btn btn-primary btn-green"
+              type="button"><strong>CONTINUE</strong>
+           </button>
+           </a>
+        </div>
+     </div>
+     <div id="diag-del-error-pop" class="d-none">
+        <div class="flex-c-alg-fdc">
+           <h1 class="pop-heading">ERROR</h1>
+           <h2 class="pop-heading">Could not remove your Diagnosis</h2>
+           <p id="med-error-message"></p>
+        </div>
+     </div>
+     <div id="diag-update-success-pop" class="popup d-none">
+        <div class="flex-c-alg-fdc">
+           <h1 class="pop-heading">YOUR Diagnoses HAS BEEN UPDATED</h1>
+           <a href="{{ data.url }}">
+           <button class="btn btn-primary btn-green"
+              type="button"><strong>CONTINUE</strong>
+           </button>
+           </a>
+           <a href="{{ data.parent_route }}">
+           <button class="btn btn-primary btn-green"
+              type="button"><strong>VIEW Diagnoses</strong>
+           </button>
+           </a>
+        </div>
+     </div>
+     <div id="diag-update-success-pop" class="d-none">
+        <div class="flex-c-alg-fdc">
+           <h1 class="pop-heading">YOUR Diagnoses HAS BEEN UPDATED</h1>
+           <a href="{{ data.url }}">
+           <button class="btn btn-primary btn-green"
+              type="button"><strong>CONTINUE</strong>
+           </button>
+           </a>
+           <a href="{{ data.parent_route }}">
+           <button class="btn btn-primary btn-green"
+              type="button"><strong>VIEW Diagnoses</strong>
+           </button>
+           </a>
+        </div>
+     </div>
+     <div id="diag-update-error-pop" class="d-none">
+        <div class="flex-c-alg-fdc">
+           <h1 class="pop-heading">ERROR</h1>
+           <h2 class="pop-heading">Could not update your diagnoses</h2>
+           <p id="diag-error-message"></p>
+        </div>
+     </div>
+</div>
+</div>
+
+{% endblock %}

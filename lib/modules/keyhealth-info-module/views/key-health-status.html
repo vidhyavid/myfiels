@@ -1,0 +1,501 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/keyhealth-info-module/js/key-health-status.js"></script>
+{% endblock %}
+{% block main %}
+<div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+    <div id="submenu-height">
+       <ul class="profile-main-nav">
+          <li><a href="/profile/edit">ABOUT ME</a></li>
+          <li class="profile-main-active"><a href="/profile/keyhealthinfo/edit"><strong>KEY HEALTH INFO</strong></a></li>
+          <li><a href="#">KEY CONTACTS</a></li>
+       </ul>
+       <ul class="profile-submenu-nav">
+          <li class="profile-submenu-active"><a href="/profile/keyhealthinfo/edit"><strong>My Health status</strong><i class="fa fa-caret-up active-uparrow"></i></a></li>
+          <li><a href="/profile/keyhealthinfo/future-care/edit">Future care<i class="fa fa-caret-up active-uparrow"></i></a></li>
+       </ul>
+    </div>
+    <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+       <!-- <h1 class="heading-m18-mx22-lb pt-tp-50 maia-form-container pd-bt-10">IMPORTANT INFORMATION</h1> -->
+       <div class="heading-m18-mx22-lb pt-tp-50 maia-form-container pd-bt-10">
+         {{ apos.area(data.page, 'headingStatusadd', {
+               widgets: {
+                 'apostrophe-rich-text': {
+                   toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                   styles: [
+                     { name: 'Heading', element: 'h1' }
+                   ]
+                 }
+               }
+             }) }}
+       </div>
+       <!-- <h1 class="heading-m18-mx22-lb pt-tp-50  pd-bt-10">IMPORTANT INFORMATION</h1> -->
+
+       <div class="maia-form-body mrg-bt-40-md pd-tp-0">
+          <div class="maia-form-container">
+             <form id="key-health-info-form" method="POST">
+                <div id="error-message"></div>
+             <div class="space-input"><label class="label-head"><strong>NHS number</strong></label><input name="nhs_number" type="text" class="sm-font-14 health-status-group" placeholder="Enter your NHS number" value="{{ data.data.nhs_number if data.data.nhs_number else '' }}"></div>
+             {% for hospital_information in data.hospital_details %}
+             <div class="hospital-details-wrapper">
+               <div class="space-input">
+                  <div>
+                     <div class="flex-sb">
+                        <label class="label-head"><strong>Hospital number</strong><br></label>
+                        {% if loop.first != true %}
+                        <a id="{{data.data.id}}" class="delete-link" href="hospital_name=hospital_name&hospital_name_value={{hospital_information.hospital_name}}&hospital_number=hospital_number&hospital_number_value={{hospital_information.hospital_number}}">Delete</a>
+                        {% endif %}
+                     </div>
+                     <input type="text" name="hospital_number[]" class="sm-font-14 hospital_number health-status-group" placeholder="Enter hospital number" value="{{ hospital_information.hospital_number if hospital_information.hospital_number else '' }}">
+                  </div>
+               </div>
+               <div class="space-input"><label class="label-head"><strong>Name of hospital</strong><br></label><input type="text" name="hospital_name[]" class="sm-font-14 hospital_name health-status-group" placeholder="Enter the hospital that this number is for" value="{{ hospital_information.hospital_name if hospital_information.hospital_name else '' }}"></div>
+               <div id="add-hospital" class="add-another-div">
+                  {% if loop.first %}
+                  <a class="add-another-time" href="#">Add another</a>
+                  {% endif %}
+               </div>
+           </div>
+           {% else %}
+           <div class="hospital-details-wrapper">
+            <div class="space-input">
+               <div>
+                  <div class="flex-sb">
+                     <label class="label-head"><strong>Hospital number</strong><br></label>
+                  </div>
+                  <input type="text" name="hospital_number[]" class="sm-font-14 hospital_number health-status-group" placeholder="Enter hospital number">
+               </div>
+            </div>
+            <div class="space-input"><label class="label-head"><strong>Name of hospital</strong><br></label><input type="text" name="hospital_name[]" class="sm-font-14 hospital_name health-status-group" placeholder="Enter the hospital that this number is for"></div>
+            <div id="add-hospital" class="add-another-div"><a class="add-another-time" href="#">Add another</a></div>
+            </div>
+           {% endfor %}
+             <!-- <div class="space-input"><label class="label-head"><strong>Hospital number</strong><br></label><input type="text" class="sm-font-14" placeholder="Enter hospital number"></div>
+             <div class="space-input"><label class="label-head"><strong>Name of hospital</strong><br></label><input type="text" class="sm-font-14" placeholder="Enter a name for goal"></div>
+             <div id="add-hospital" class="add-another-div"><a class="add-another-time" href="#">Add another</a></div>
+             <div class="d-none">
+                <div class="space-input top-line">
+                   <div>
+                      <div class="flex-sb"><label class="label-head"><strong>Hospital number</strong><br></label><a class="delete-link" href="#">Delete</a></div>
+                      <input type="text" class="sm-font-14" placeholder="Enter hospital number">
+                   </div>
+                </div>
+                <div class="space-input"><label class="label-head"><strong>Name of hospital</strong><br></label><input type="text" class="sm-font-14" placeholder="Enter a name for goal"></div>
+                <div class="add-another-div"><a class="add-another-time" href="#">Add another</a></div>
+             </div> -->
+             <div class="heading-m18-mx22-lb pt-tp-50 pd-bt-10">
+               {{ apos.area(data.page, 'headingStatusinfo', {
+                     widgets: {
+                       'apostrophe-rich-text': {
+                         toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                         styles: [
+                           { name: 'Heading', element: 'h1' }
+                         ]
+                       }
+                     }
+                   }) }}
+             </div>
+             <!-- <h1 class="heading-m18-mx22-lb pt-tp-50 pd-bt-10"><strong>MY HEALTH STATUS</strong></h1> -->
+             <div class="p-top-line">
+                <div class="status-profile">
+                   <div class="flex-end-c">
+                      <div class="profile-icon mrg-bt-10"><img src="/modules/my-apostrophe-assets/img/opacity-24px.svg"></div>
+                   </div>
+                   <div class="w-100">
+                      <label class="label-head"><strong>Blood type</strong><br></label>
+                      <div class="maia-select mrg-bt-10 w-100">
+                         <select name="blood_type" id="slct" class="health-status-group">
+                            <option value selected disabled>Select your blood type from the list</option>
+                            <option value="A" {{ 'selected' if data.data.blood_type == "A" else '' }}>A</option>
+                            <option value="B" {{ 'selected' if data.data.blood_type == "B" else '' }}>B</option>
+                            <option value="AB" {{ 'selected' if data.data.blood_type == "AB" else '' }}>AB</option>
+                            <option value="O" {{ 'selected' if data.data.blood_type == "O" else '' }}>O</option>
+                         </select>
+                      </div>
+                   </div>
+                </div>
+                <div class="blood_type_wrapper"></div>
+                {% for physical_health_diagnosis in data.data.physical_health_diagnosis %}
+                <div class="status-profile physical-health-diagnosis-wrapper">
+                   <div class="flex-end-c">
+                      <div class="profile-icon"><img src="/modules/my-apostrophe-assets/img/directions_run-24px.svg"></div>
+                   </div>
+                   <div class="w-100">
+                     {% if loop.first != true %}
+                      <div class="flex-sb">
+                        <label class="label-head"><strong>Physical health diagnosis</strong><br></label>
+                        <a id="{{data.data.id}}" class="delete-link" href="name=physical_health_diagnosis&value={{physical_health_diagnosis}}">Delete</a></div>
+                      {% else %}
+                        <label class="label-head"><strong>Physical health diagnosis</strong><br></label>
+                        {% endif %}
+                      <input type="text" name="physical_health_diagnosis[]" class="sm-font-14 health-status-group" placeholder="Add any physical health diagnosis you have" value="{{ physical_health_diagnosis if physical_health_diagnosis else '' }}">
+                      {% if loop.first %}
+                     <a href="#" id="add-physical-health-diagnosis" class="add-another"><strong>add another</strong></a>
+                     {% endif %}
+                  </div>
+                </div>
+                {% else %}
+                <div class="status-profile physical-health-diagnosis-wrapper">
+                  <div class="flex-end-c">
+                     <div class="profile-icon"><img src="/modules/my-apostrophe-assets/img/directions_run-24px.svg"></div>
+                  </div>
+                  <div class="w-100">
+                     <label class="label-head"><strong>Physical health diagnosis</strong><br></label>
+                     <input type="text" name="physical_health_diagnosis[]" class="sm-font-14 health-status-group" placeholder="Add any physical health diagnosis you have">
+                    <a href="#" id="add-physical-health-diagnosis" class="add-another"><strong>add another</strong></a>
+                 </div>
+               </div>
+                {% endfor %}
+                {% for mental_health_diagnosis in data.data.mental_health_diagnosis %}
+                <div class="status-profile mental-health-diagnosis-wrapper">
+                   <div class="flex-end-c">
+                      <div class="profile-icon"><img src="/modules/my-apostrophe-assets/img/spa-24px.svg"></div>
+                   </div>
+                   <div class="w-100">
+                     {% if loop.first != true %}
+                     <div class="flex-sb">
+                       <label class="label-head"><strong>Mental health diagnosis</strong><br></label>
+                       <a id="{{data.data.id}}" class="delete-link" href="name=mental_health_diagnosis&value={{mental_health_diagnosis}}">Delete</a>
+                     </div>
+                     {% else %}
+                      <label class="label-head"><strong>Mental health diagnosis</strong><br></label>
+                      {% endif %}
+                      <input type="text" name="mental_health_diagnosis[]" class="sm-font-14 health-status-group" placeholder="Add any mental health diagnosis you have" value="{{ mental_health_diagnosis if mental_health_diagnosis else '' }}">
+                  {% if loop.first %}
+                  <a id="add-mental-health-diagnosis" class="add-another" href="#"><strong>add another</strong></a>
+                  {% endif %}
+               </div>
+                </div>
+                {% else %}
+                <div class="status-profile mental-health-diagnosis-wrapper">
+                  <div class="flex-end-c">
+                     <div class="profile-icon"><img src="/modules/my-apostrophe-assets/img/spa-24px.svg"></div>
+                  </div>
+                  <div class="w-100"><label class="label-head"><strong>Mental health diagnosis</strong><br></label><input type="text" name="mental_health_diagnosis[]" class="sm-font-14 health-status-group" placeholder="Add any mental health diagnosis you have"><a id="add-mental-health-diagnosis" class="add-another" href="#"><strong>add another</strong></a></div>
+               </div>
+                {% endfor %}
+                {% for medications in data.data.medications %}
+                <div class="status-profile medications-wrapper">
+                   <div class="flex-end-c">
+                      <div class="profile-icon"><img src="/modules/my-apostrophe-assets/img/medication.svg"></div>
+                   </div>
+                   <div class="w-100">
+                     {% if loop.first != true %}
+                     <div class="flex-sb">
+                       <label class="label-head"><strong>Medications I am taking</strong><br></label>
+                       <a id="{{data.data.id}}" class="delete-link" href="name=medications&value={{medications}}">Delete</a>
+                     </div>
+                     {% else %}
+                   <label class="label-head"><strong>Medications I am taking</strong><br></label>
+                   {% endif %}
+                   <input type="text" name="medications[]" class="sm-font-14 health-status-group" placeholder="Add any medications you are taking" value="{{ medications if medications else '' }}">
+                     {% if loop.first %}
+                     <a id="add-medications" class="add-another" href="#"><strong>add another</strong></a>
+                     {% endif %}
+                  </div>
+                </div>
+                {% else %}
+                <div class="status-profile medications-wrapper">
+                  <div class="flex-end-c">
+                     <div class="profile-icon"><img src="/modules/my-apostrophe-assets/img/medication.svg"></div>
+                  </div>
+                  <div class="w-100"><label class="label-head"><strong>Medications I am taking</strong><br></label><input type="text" name="medications[]" class="sm-font-14 health-status-group" placeholder="Add any medications you are taking"><a id="add-medications" class="add-another" href="#"><strong>add another</strong></a></div>
+               </div>
+                {% endfor %}
+                {% for allergies in data.data.allergies %}
+                <div class="status-profile allergies-wrapper">
+                   <div class="flex-end-c">
+                      <div class="profile-icon"><img src="/modules/my-apostrophe-assets/img/allergies.svg"></div>
+                   </div>
+                   <div class="w-100">
+                  {% if loop.first != true %}
+                  <div class="flex-sb">
+                     <label class="label-head"><strong>Allergies</strong><br></label>
+                     <a id="{{data.data.id}}" class="delete-link" href="name=allergies&value={{allergies}}">Delete</a>
+                  </div>
+                  {% else %}
+                   <label class="label-head"><strong>Allergies</strong><br></label>
+                  {% endif %}
+                   <input type="text" name="allergies[]" class="sm-font-14 health-status-group" placeholder="Add any allergies you have" value="{{ allergies if allergies else '' }}">
+                  {% if loop.first %}
+                  <a id="add-allergies" class="add-another" href="#"><strong>add another</strong></a>
+                  {% endif %}
+                  </div>
+                </div>
+                {% else %}
+                <div class="status-profile allergies-wrapper">
+                  <div class="flex-end-c">
+                     <div class="profile-icon"><img src="/modules/my-apostrophe-assets/img/allergies.svg"></div>
+                  </div>
+                  <div class="w-100"><label class="label-head"><strong>Allergies</strong><br></label><input type="text" name="allergies[]" class="sm-font-14 health-status-group" placeholder="Add any allergies you have"><a id="add-allergies" class="add-another" href="#"><strong>add another</strong></a></div>
+               </div>
+                {% endfor %}
+                {% for immunisations in data.data.immunisations %}
+                <div class="status-profile immunisations-wrapper">
+                   <div class="flex-end-c">
+                      <div class="profile-icon"><img src="/modules/my-apostrophe-assets/img/immunisations.svg"></div>
+                   </div>
+                   <div class="w-100">
+                  {% if loop.first != true %}
+                  <div class="flex-sb">
+                     <label class="label-head"><strong>Immunisations</strong><br></label>
+                     <a id="{{data.data.id}}" class="delete-link" href="name=immunisations&value={{immunisations}}">Delete</a>
+                  </div>
+                  {% else %}
+                  <label class="label-head"><strong>Immunisations</strong><br></label>
+                  {% endif %}
+                  <input type="text" name="immunisations[]" class="sm-font-14 health-status-group" placeholder="Add your immunisations or vaccines" value="{{ immunisations if immunisations else '' }}">
+                  {% if loop.first %}
+                  <a id="add-immunisations" class="add-another" href="#"><strong>add another</strong></a>
+                  {% endif %}
+                  </div>
+                </div>
+                {% else %}
+                <div class="status-profile immunisations-wrapper">
+                  <div class="flex-end-c">
+                     <div class="profile-icon"><img src="/modules/my-apostrophe-assets/img/immunisations.svg"></div>
+                  </div>
+                  <div class="w-100"><label class="label-head"><strong>Immunisations</strong><br></label><input type="text" name="immunisations[]" class="sm-font-14 health-status-group" placeholder="Add your immunisations or vaccines"><a id="add-immunisations" class="add-another" href="#"><strong>add another</strong></a></div>
+               </div>
+                {% endfor %}
+                {% for language in data.data.language %}
+                <div class="status-profile language-wrapper">
+                 <div class="flex-end-c">
+                      <div class="profile-icon"><img src="/modules/my-apostrophe-assets/img/language-24px.svg"></div>
+                   </div>
+                   <div class="w-100">
+                     {% if loop.first != true %}
+                     <div class="flex-sb">
+                       <label class="label-head"><strong>Language</strong><br></label>
+                       <a id="{{data.data.id}}" class="delete-link" href="name=language&value={{language}}">Delete</a>
+                     </div>
+                     {% else %}
+                      <label class="label-head"><strong>Language</strong><br></label>
+                      {% endif %}
+                      <div class="maia-select mrg-bt-10 w-100 fist-language">
+                         <select name="language[]" id="slct" class="health-status-group">
+                            <option value selected disabled>Select your language from the list</option>
+                            {% for languageValue in data.languages %}
+                            <option value="{{languageValue}}" {{ 'selected' if languageValue == language else '' }}>{{languageValue}}</option>
+                            {% endfor %}
+                         </select>
+                      </div>
+                      {% if loop.first %}
+                      <a id="add-language" class="add-another" href="#"><strong>add another</strong></a>
+                      {% endif %}
+                   </div>
+                </div>
+                {% else %}
+                <div class="status-profile language-wrapper">
+                  <div class="flex-end-c">
+                     <div class="profile-icon"><img src="/modules/my-apostrophe-assets/img/language-24px.svg"></div>
+                  </div>
+                  <div class="w-100">
+                     <label class="label-head"><strong>Language</strong><br></label>
+                     <div class="maia-select mrg-bt-10 w-100 fist-language">
+                        <select name="language[]" id="slct" class="health-status-group">
+                           <option value selected disabled>Select your language from the list</option>
+                           {% for languageValue in data.languages %}
+                           <option value="{{languageValue}}">{{languageValue}}</option>
+                           {% endfor %}
+                        </select>
+                     </div>
+                     <a id="add-language" class="add-another" href="#"><strong>add another</strong></a>
+                  </div>
+               </div>
+                {% endfor %}
+             </div>
+             <div id="hidden-languages" class="d-none">
+               <select name="language[]" id="slct">
+                  <option value selected disabled>Select your language from the list</option>
+                  {% for languageValue in data.languages %}
+                  <option value="{{languageValue}}" {{ 'selected' if languageValue == language else '' }}>{{languageValue}}</option>
+                  {% endfor %}
+               </select>
+             </div>
+             <div class="pd-tp-20">
+                <div class="status-profile">
+                   <div class="flex-end-c">
+                      <div class="profile-icon mrg-bt-10"><img src="/modules/my-apostrophe-assets/img/accessible-24px.svg"></div>
+                   </div>
+                   <div class="w-100">
+                      <div class="maia-checkbox-group mrg-bt-10">
+                        <!-- <input type="hidden" name="mobility" value="false"/> -->
+                         <input type="checkbox" id="about-work-1" class="health-status-group" name="mobility" value="true" {{ 'checked' if data.data.mobility else '' }}><label for="about-work-1">I have mobility needs</label></div>
+                   </div>
+                </div>
+                <div class="status-profile pd-tp-10">
+                   <div class="flex-end-c">
+                      <div class="profile-icon mrg-bt-10"><img src="/modules/my-apostrophe-assets/img/visibility_off-24px.svg"></div>
+                   </div>
+                   <div class="w-100">
+                      <div class="maia-checkbox-group mrg-bt-10">
+                        <!-- <input type="hidden" name="vision" value="false"/> -->
+                         <input type="checkbox" id="about-work-2" class="health-status-group" name="vision" value="true" {{ 'checked' if data.data.vision else '' }}>
+                         <label for="about-work-2">I have vision needs</label></div>
+                   </div>
+                </div>
+                <div class="status-profile pd-tp-10">
+                   <div class="flex-end-c">
+                      <div class="profile-icon mrg-bt-10"><img src="/modules/my-apostrophe-assets/img/hearing-24px.svg"></div>
+                   </div>
+                   <div class="w-100">
+                      <div class="maia-checkbox-group mrg-bt-10">
+                        <!-- <input type="hidden" name="hearing" value="false"/> -->
+                         <input type="checkbox" id="about-work-3" class="health-status-group"  name="hearing" value="true" {{ 'checked' if data.data.hearing else '' }}>
+                         <label for="about-work-3">I have hearing needs</label></div>
+                   </div>
+                </div>
+             </div>
+             <div class="heading-m18-mx22-lb pt-tp-50 pd-bt-10">
+               {{ apos.area(data.page, 'headingStatusfamily', {
+                     widgets: {
+                       'apostrophe-rich-text': {
+                         toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                         styles: [
+                           { name: 'Heading', element: 'h1' }
+                         ]
+                       }
+                     }
+                   }) }}
+             </div>
+             <!-- <h1 class="heading-m18-mx22-lb pt-tp-50 pd-bt-10"><strong>IMMEDIATE FAMILY HEALTH</strong><br></h1> -->
+             <div class="p-top-line">
+                <div class="space-input"><label class="label-head"><strong>Name of condition</strong><br></label><input type="text" class="sm-font-14 health-status-group" name="condition_name" placeholder="Add a condition" value="{{ data.data.condition_name if data.data.condition_name else '' }}"></div>
+
+
+                {% for who_has_it in data.data.who_has_it %}
+                <div class="who-has-it-wrapper">
+                <div class="space-input">
+                  {% if loop.first != true %}
+                  <div class="flex-sb">
+                     <label class="label-head"><strong>Who has it?</strong><br></label>
+                     <a id="{{data.data.id}}" class="delete-link" href="name=who_has_it&value={{who_has_it}}">Delete</a>
+                  </div>
+                  {% else %}
+                  <label class="label-head"><strong>Who has it?</strong><br></label>
+                  {% endif %}
+                  <input type="text" name="who_has_it[]" class="sm-font-14 health-status-group" placeholder="Add name of family member has this condition" value="{{ who_has_it if who_has_it else '' }}"></div>
+                <div class="add-another-div">
+               {% if loop.first %}
+                <a id="add-who-has-it" class="add-another-time" href="#">Add another</a>
+                {% endif %}
+                </div>
+                </div>
+
+
+                {% else %}
+                <div class="who-has-it-wrapper">
+                  <div class="space-input">
+                     <label class="label-head"><strong>Who has it?</strong><br></label><input type="text" name="who_has_it[]" class="sm-font-14 health-status-group" placeholder="Add name of family member has this condition"></div>
+                  <div class="add-another-div"><a id="add-who-has-it" class="add-another-time" href="#">Add another</a></div>
+                  </div>
+                {% endfor %}
+             </div>
+             <div class="flex-end mrg-tp-bt-30">
+                <!-- <button class="btn btn-primary save-btn mrg-rt-20" type="button">SAVE</button> -->
+                <button class="btn btn-primary save-btn mrg-rt-20" type="submit">Save</button>
+                <button class="btn btn-primary cancel-btn"  onclick="location.href='{{data.parent_route}}'" type="button">CANCEL</button></div>
+            </form>
+          </div>
+       </div>
+    </div>
+    <!-- <div id="pop-up-hd-sub-ft" clas="d-done">
+
+    </div> -->
+    <div class="popup" style="display: none;">
+       <div class="popup-body">
+          <div class="goal-pop-up-card">
+             <div class="close-right"><i class="material-icons icon-font">highlight_off</i></div>
+             <div class="popup-msg">
+                <label class="popup-heading color-w"><strong>ARE YOU SURE?</strong><br></label>
+                <p class="color-w">Deleting this step will permanently delete all the details That you have added. Are you sure you want to delete?</p>
+                <div class="flex-c-alg-fdc"><button class="btn btn-primary cancel-btn" type="button" onclick="window.location.href = &#39;#&#39;"><strong>YES, DELETE</strong><br></button><a class="return-link" href="#">NO, RETURN TO GOAL</a></div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <div class="popup" style="display: none;">
+       <div class="popup-body">
+          <div class="goal-pop-up-card">
+             <div class="close-right"><i class="material-icons icon-font">highlight_off</i></div>
+             <div class="popup-msg">
+                <label class="popup-heading color-w"><strong>ARE YOU SURE?</strong><br></label>
+                <p class="color-w">Cancelling this step will permanently delete all the details that you have added. Are you sure you want to cancel?</p>
+                <div class="flex-c-alg-fdc"><button class="btn btn-primary cancel-btn" type="button" onclick="window.location.href = &#39;#&#39;"><strong>YES, CANCEL STEP</strong></button><a class="return-link" href="#">NO, CONTINUE EDITING STEP</a></div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <div id="delete-diag-pop" class="popup d-none">
+      <div class="popup-body">
+         <div class="goal-pop-up-card">
+            <div class="popup-msg">
+               <h1 class="pop-heading">ARE YOU SURE?</h1>
+               <p class="color-w">Are you sure you want to delete?</p>
+               <button id="delete-button" data-id="" data-url="" class="btn btn-primary cancel-btn" type="button"><strong>YES, DELETE</strong></button>
+               <a roll="button" class="return-link" href="/profile/keyhealthinfo"><strong>CANCEL</strong></a>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div id="pop-up-hd-sub-ft" class="d-none" style="min-height: calc((100vh - 477px) - 90px);">
+      <div id="health-save-success-popup">
+      <div class="flex-c-alg-fdc">
+         <h1 class="pop-heading"><strong>YOUR HEALTH STATUS WAS SAVED!</strong></h1>
+         <button onclick="location.href='/profile/keyhealthinfo';" class="btn btn-primary btn-green" type="button"><strong>VIEW HEALTH STATUS</strong><br></button>
+      </div>
+   </div>
+      <div id="diag-del-success-pop" class="d-none">
+          <div class="popup-body">
+             <h1 class="pop-heading">YOUR MY HEALTH STATUS HAS BEEN REMOVED</h1>
+             <a href="/profile/keyhealthinfo">
+             <button class="btn btn-primary btn-green" type="button"><strong>CONTINUE</strong>
+             </button>
+             </a>
+          </div>
+       </div>
+       <div id="diag-del-error-pop" class="d-none">
+          <div class="flex-c-alg-fdc">
+             <h1 class="pop-heading">ERROR</h1>
+             <h2 class="pop-heading">Could not remove your Diagnosis</h2>
+             <p id="med-error-message"></p>
+          </div>
+       </div>
+       <div id="diag-update-success-pop" class="popup d-none">
+          <div class="popup-body">
+             <h1 class="pop-heading">YOUR MY HEALTH STATUS HAS BEEN REMOVED</h1>
+             <a href="/profile/keyhealthinfo">
+             <button class="btn btn-primary btn-green" type="button"><strong>CONTINUE</strong>
+             </button>
+             </a>
+             <a href="">
+             <button class="btn btn-primary btn-green" type="button"><strong>VIEW My health status</strong>
+             </button>
+             </a>
+          </div>
+       </div>
+       <div id="diag-update-success-pop" class="d-none">
+          <div class="flex-c-alg-fdc">
+             <h1 class="pop-heading">YOUR Diagnoses HAS BEEN UPDATED</h1>
+             <a href="/my-health/edit?type=primary">
+             <button class="btn btn-primary btn-green" type="button"><strong>CONTINUE</strong>
+             </button>
+             </a>
+             <a href="">
+             <button class="btn btn-primary btn-green" type="button"><strong>VIEW Diagnoses</strong>
+             </button>
+             </a>
+          </div>
+       </div>
+       <div id="diag-update-error-pop" class="d-none">
+          <div class="flex-c-alg-fdc">
+             <h1 class="pop-heading">ERROR</h1>
+             <h2 class="pop-heading">Could not update your diagnoses</h2>
+             <p id="med-error-message"></p>
+          </div>
+       </div>
+  </div>
+
+ </div>
+{% endblock %}

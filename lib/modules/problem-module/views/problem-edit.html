@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/problem-module/js/problem.js"></script>
+{% endblock %}
+{% block main %}
+<div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+  <div id="submenu-height">
+  {% include './_tracker_menu.html' %}
+  </div>
+  <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+    <h1 class="heading-m18-mx22-lb pd-tp-bt-30 maia-form-container"><strong>EDIT ENTRY</strong><br></h1>
+    <div class="maia-form-body mrg-bt-40-md pd-tp-0">
+      <div class="maia-form-container">
+        <form>
+          <input type="text" name="" id="problemId" value="{{data.problem.id}}" hidden>
+          <div class="flex-end mrg-tp-20">
+            <a class="delete-link deleteProblem" id="{{data.problem.id}}" href="javascript:void(0);">Delete</a></div>
+
+          <div class="space-input mrg-rt-20"><label class="label-head"><strong>Date</strong><br></label><label class="cal-date">
+            <input class="form-control sm-font-14 datepicker" type="text" id="problemDate" placeholder="DD/MM/YYYY" value="{{data.problem.date | date('DD/MM/YYYY')}}"></label></div>
+          <div class="space-input">
+            <label class="label-head"><strong>How well did you cope with your problem today?</strong><br></label>
+            <div class="maia-select mrg-bt-10 mrg-tp-0 w-100">
+              <select required name="slct" id="problemRange">
+                <option value  disabled>Select your problem</option>
+                <option value="Excellent" {{ 'selected' if data.problem.range == 'Excellent' else '' }} >Excellent</option>
+                <option value="Very good" {{ 'selected' if data.problem.range == 'Very good' else '' }}>Very good</option>
+                <option value="Good" {{ 'selected' if data.problem.range == 'Good' else '' }}>Good</option>
+                <option value="Fair" {{ 'selected' if data.problem.range == 'Fair' else '' }}>Fair</option>
+                <option value="Poor" {{ 'selected' if data.problem.range == 'Poor' else '' }}>Poor</option>
+              </select>
+            </div>
+          </div>
+          <div class="space-area"><label class="label-head"><strong>Notes</strong><br></label><textarea id="problemNotes" value='{{data.problem.notes}}' class="form-control sm-font-14" placeholder="Write a note on how your problem is today">{{data.problem.notes}}</textarea></div>
+          <div class="flex-end mrg-tp-bt-30"><button class="btn btn-primary save-btn mrg-rt-20" type="button" id="saveEntry" >SAVE</button>
+            <a href="/tracker/problem/view"><button class="btn btn-primary cancel-btn" type="button">CANCEL</button></a></div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div id="pop-up-hd-sub-ft" class="d-none">
+  <div id="prob-add-success-pop" class="d-none">
+      <div class="flex-c-alg-fdc">
+          <h1 class="pop-heading">YOUR PROBLEM HAS BEEN UPDATED</h1>
+          <a href="{{ data.page.slug }}/view">
+              <button class="btn btn-primary btn-green"
+                  type="button"><strong>VIEW PROBLEM</strong>
+              </button>
+          </a>
+      </div>
+  </div>
+
+  <div id="prob-add-error-pop" class="d-none">
+      <div class="flex-c-alg-fdc">
+          <h1 class="pop-heading">ERROR</h1>
+          <h2 class="pop-heading">Could not add your problem</h2>
+          <p id="prob-error-message"></p>
+          <a href="{{ data.page.slug }}/view">
+              <button class="btn btn-primary btn-green"
+                  type="button"><strong>VIEW PROBLEM</strong>
+              </button>
+          </a>
+      </div>
+  </div>
+  </div>
+
+
+</div>
+{% endblock %}

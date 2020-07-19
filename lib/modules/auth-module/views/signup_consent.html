@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/auth-module/js/auth.js"></script>
+{% endblock %}
+{% block main %}
+<!-- <div id="header-height" class="auth-header">
+    <div class="login-header-img"></div>
+    <div class="green-border-lt">
+        <div class="login-div max-md-hide">
+            <div class="auth-login"><a class="login-text" href="/users/login">LOG IN</a></div>
+        </div>
+        <div class="top-heading">
+            <!-- <h1><strong>GET STARTED</strong><br></h1>
+            <p>Enter your details to get access to your own MAIA dashboard.</p> -->
+            <!-- {{ apos.area(data.page, 'signupConsent', {
+                  widgets: {
+                    'apostrophe-rich-text': {
+                      toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                      styles: [
+                        { name: 'Heading', element: 'h1' },
+                        { name: 'Paragraph', element: 'p' }
+                      ]
+                    }
+                  }
+                }) }}
+        </div>
+    </div> -->
+<!-- </div> -->
+<div id="maia-main-body" class="maia-inner-body flex-alg-item-c w-line-max-md">
+    <div class="maia-container pt-bt-40-md">
+        <div class="maia-form-body w-line-min-md">
+            <div class="maia-form-container flex-c-alg-fdc">
+              <form id="signup_consent" method="POST">
+                <div>
+                    <div class="maia-auth-checkbox-group"><input type="checkbox" id="signup_terms" class="signup_term" name="signup_terms"><label for="signup_terms" class="errorlabel">I accept the<a href="#"> terms of service</a></label></div>
+                    <div class="signup_terms_wrapper">
+                    </div>
+                    <div class="maia-auth-checkbox-group"><input type="checkbox" id="signup_privacy" name="signup_privacy"><label for="signup_privacy" class="errorlabel1">I accept the terms of the <a href="#">privacy policy</a><br></label></div>
+                    <div class="signup_privacy_wrapper">
+                    </div>
+                    <div class="maia-auth-checkbox-group"><input type="checkbox" id="consent" name="consent"><label for="consent" class="errorlabel2">I consent to sharing my data with NHS staff<br></label></div>
+                    <div class="consent_wrapper">
+                    </div>
+                    <!-- <div class="maia-auth-checkbox-group"><input type="checkbox" id="signup_consent" name="signup_consent"><label for="signup_consent">I consent to sharing my data with NHS staff<br></label></div> -->
+                </div>
+                <div class="flex-c-alg-fdc pd-tp-30 pt-bt-20"><button name="submit" class="btn btn-primary btn-green btn-min-md-w-325" type="submit"><strong>SUBMIT</strong></button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup d-none">
+    <div class="popup-body">
+        <div class="auth-popup-card">
+            <div class="close-right"><i class="material-icons icon-font">highlight_off</i></div>
+            <div class="auth-popup-msg"><label class="popup-heading">WE NEED TO VERIFY IT IS YOU!</label>
+                <p>You have signed up to MAIA!</p>
+                <p>We have sent you an email to verify your account. Please check your email and click on the link provided to login.</p>
+                <div class="flex-c-alg-fdc"><button id="resend_verification_mail" class="btn btn-primary btn-black-outline btn-min-md-w-325" type="button"><strong>RESEND EMAIL</strong></button></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

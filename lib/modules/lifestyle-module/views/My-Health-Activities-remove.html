@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/lifestyle-module/js/add_edit_activity_hobby_common.js"></script>
+<script src="/modules/lifestyle-module/js/edit_activity_hobby.js"></script>
+{% endblock %}
+{% block main %}
+    <div id="maia-main-body" class="maia-inner-body" style="position: relative;">
+        <div id="submenu-height">
+            <ul class="profile-submenu-nav">
+                <li><a href="/lifestyle">Health factors<i class="fa fa-caret-up active-uparrow"></i></a></li>
+                <li class="profile-submenu-active"><a href="/my-health/lifestyle/activities"><strong>Hobbies &amp; activities</strong><br><br><br><i class="fa fa-caret-up active-uparrow"></i></a></li>
+            </ul>
+        </div>
+        <div id="maia-body-inner" class="maia-container" style="/*display: none;*/">
+            <div class="heading-m18-mx22-lb pd-tp-bt-30 maia-form-container">
+              <!-- <strong>MY HOBBIES &amp; ACTIVITIES</strong> -->
+              {{ apos.area(data.page, 'ActivityEditTitle', {
+                    widgets: {
+                      'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                          { name: 'Heading', element: 'h1' }
+                        ]
+                      }
+                    }
+                  }) }}
+
+            </div>
+            <div class="maia-form-body mrg-bt-40-md pd-tp-0">
+                <div class="maia-form-container">
+                    <input type="number" class="d-none" value="{{ data.data | length }}" id="current_act_count">
+                    {% for act in data.data %}
+                    <div class="space-input">
+                        <div class="flex-sb">
+                            <div class="label-head">
+                              <!-- <strong>Add a hobby or activity</strong><br> -->
+                            </div>
+                            <a class="delete-link" href="javascript:void(0);" onclick="showDeleteActPop('{{ act.id }}')">Delete</a>
+                        </div>
+                        <input type="number" class="d-none" value="{{act.id  }}" id="act_id__{{ loop.index }}">
+                        <input type="text" class="sm-font-14"
+                            id="act_hobby__{{ loop.index }}"
+                            value="{{ act.name }}"
+                            placeholder="Add hobby or activity">
+                    </div>
+                    {% endfor %}
+
+                    <div class="flex-end mrg-tp-bt-30">
+                        <button class="btn btn-primary save-btn mrg-rt-20" id="edit-act-save-btn" type="button">SAVE</button>
+                        <a href="{{ data.parent_route }}">
+                            <button class="btn btn-primary cancel-btn" type="button">CANCEL</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pop-up-hd-sub-ft" class="d-none">
+        <div id="act-del-success-pop" class="d-none">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading">YOUR ACTIVITY/HOBBY HAS BEEN REMOVED</h1>
+                <a href="/{{ data.module_root }}/lifestyle/activities">
+                    <button class="btn btn-primary btn-green"
+                        type="button"><strong>CONTINUE</strong>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div id="act-del-error-pop" class="d-none">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading">ERROR</h1>
+                <h2 class="pop-heading">Could not remove your activity/hobby</h2>
+                <p id="act-error-message"></p>
+            </div>
+        </div>
+
+        <div id="act-update-success-pop" class="d-none">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading">YOUR ACTIVITIES/HOBBIES HAS BEEN UPDATED</h1>
+                <a href="{{ data.slug }}">
+                    <button class="btn btn-primary btn-green"
+                        type="button"><strong>CONTINUE</strong>
+                    </button>
+                </a>
+                <a href="{{ data.parent_route }}">
+                    <button class="btn btn-primary btn-green"
+                        type="button"><strong>VIEW ACTIVITIES/HOBBIES</strong>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+
+        <div id="act-update-error-pop" class="d-none">
+            <div class="flex-c-alg-fdc">
+                <h1 class="pop-heading">ERROR</h1>
+                <h2 class="pop-heading">Could not update your activities/hobbies</h2>
+                <p id="act-error-message"></p>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}
