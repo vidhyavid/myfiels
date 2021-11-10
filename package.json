@@ -13,7 +13,7 @@
   "author": "P'unk Avenue",
   "license": "MIT",
   "dependencies": {
-    "apostrophe": "^2.47.0",
+    "apostrophe": "^3.4.0",
     "aws-sdk": "^2.694.0",
     "device-detector-js": "^2.2.1",
     "dotenv": "^8.2.0",
